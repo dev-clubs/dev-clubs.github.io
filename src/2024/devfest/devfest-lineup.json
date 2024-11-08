@@ -1,0 +1,56 @@
+[
+   {
+        "name":         "Juan Guillermo Gómez",
+        "organization": "Google Dev. Expert",
+        "role":         "Cloud Architect",
+        "pictureURL":   "https://edteam-media.s3.amazonaws.com/users/avatar/c5b7bdb1-9513-4436-97ac-c15fc9568f98.jpg",
+        "socials": [
+            ["linkedin", "https://www.linkedin.com/in/jggomezt/"]
+        ]
+    }
+   ,{
+        "name":         "Javier Ruiz",
+        "organization": "Google Cloud",
+        "role":         "Project Manager",
+        "pictureURL":   "https://media.licdn.com/dms/image/v2/D4E03AQHPGFUI65Bo5Q/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1706023604729?e=1735776000&v=beta&t=TqMhph8N9qTuhnX4xd5vM4iX-vFJxvnbz7I-_ASAXN4",
+        "socials": [
+            ["linkedin", "https://www.linkedin.com/in/javaruiz/"]
+        ]
+    }
+   ,{
+        "name":         "Aarón Guerrero",
+        "organization": "Google Dev. Expert",
+        "role":         "Cloud Architect",
+        "pictureURL":   "https://pbs.twimg.com/profile_images/1684806244819697665/fsN0OTkj_400x400.jpg",
+        "socials": [
+            ["linkedin", "https://www.linkedin.com/in/aaronthewarrior/"]
+        ]
+    }
+   ,{
+        "name":         "Rene Figueroa",
+        "organization": "Wizeline",
+        "role":         "Technology Director",
+        "pictureURL":   "https://media.licdn.com/dms/image/v2/C4E03AQHjamjc_JeRXQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1533476669328?e=1735776000&v=beta&t=fJuBzqmch0DirHHmx9oTGWX-Azm6QZGipgtViKXg0BQ",
+        "socials": [
+            ["linkedin", "https://www.linkedin.com/in/renecloud/"]
+        ]
+    }
+   ,{
+        "name":         "Esteban Quintana",
+        "organization": "Pinterest",
+        "role":         "Software Engineer",
+        "pictureURL":   "https://media.licdn.com/dms/image/v2/C4E03AQEZ7FbSnZwHBA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1630722250582?e=1736380800&v=beta&t=KaHmutJRuLpVVM59FjK519uz-ZZqd6_Ef0blgwYIL2Y",
+        "socials": [
+            ["linkedin", "https://www.linkedin.com/in/esteban-quintana-cueto/"]
+        ]
+    }
+   ,{
+        "name":         "Roberto Cruz Lozano",
+        "organization": "IBM",
+        "role":         "Python Developer",
+        "pictureURL":   "https://media.licdn.com/dms/image/v2/C4D03AQGZH6PWgq4mxQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1597188537225?e=2147483647&v=beta&t=_VpLFPksIdPDjNIoIxkxDNpw7ycz9eS56O8McloNgks",
+        "socials": [
+                        ["github", "https://github.com/Tank3-TK3"]
+        ]
+    }
+]

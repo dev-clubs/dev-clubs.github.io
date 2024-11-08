@@ -3,31 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Google Deeloper Groups @ Querétaro</title>
+  <title>Google Developer Groups @ Querétaro</title>
 
-  <link href="https://fonts.cdnfonts.com/css/google-sans" rel="stylesheet">
-  <script type="module" src="./home-element.ts"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@200;300;700&display=swap" rel="stylesheet">
+
+  <!-- <script type="module" src="./home-element.ts"></script> -->
+  <script type="module" src="./2024/devfest/devfest-navbar.ts"></script>
+  <script type="module" src="./2024/devfest/devfest-hero.ts"></script>
+  <script type="module" src="./2024/devfest/devfest-lineup.ts"></script>
+  <script type="module" src="./2024/devfest/devfest-sponsors.ts"></script>
+  <script type="module" src="./2024/devfest/devfest-day-i.ts"></script>
+  <script type="module" src="./2024/devfest/devfest-day-ii.ts"></script>
+  <script type="module" src="./2024/devfest/devfest-footer.ts"></script>
+
+  <link rel="stylesheet" href="./main.css">
 </head>
 <body>
-  <style>
-    body {
-      font-family: Avenir, "Century Gothic", Helvetica, Arial, sans-serif;
-      font-family: 'Product Sans';
+  <!-- <home-element>
+    <h1 slot="hero" class="landing__title"
+      >#DevQuerėtaro
+    </h1>
+  </home-element> -->
 
-      padding: 0;
-      margin: 0;
-    }
+  <devfest-navbar>
+  </devfest-navbar>
 
-    @media(prefers-color-scheme: dark) {
-      body {
-        background-color: #24262C;
-        color: white;
-      }
-    }
-  </style>
+  <section>
+    <devfest-hero>
+      <h1 slot="event"
+        class="hero__event"
+        >DevFest
+      </h1>
+      <p slot="date"
+        class="hero__date"
+      >
+        <strong>16</strong>&<strong>17 </strong>
+        de Noviembre
+      </p>
+      <h2 slot="location"
+        class="hero__location"
+        >QRO, México
+      </h2>
+      <a slot="call-to-action"
+        class="hero__call-to-action"
+        href="#register"
+        >Regístrate
+      </a>
+    </devfest-hero>
+  </section>
 
-  <home-element>
-    <h1>Hola humano</h1>
-  </home-element>
+  <devfest-lineup>
+    <h1 slot="header"
+      class="lineup__header"
+    >Invitados</h1>
+  </devfest-lineup>
+  
+  <devfest-sponsors>
+    <h1 slot="header"
+      class="sponsors__header"
+    >Patrocinan</h1>
+  </devfest-sponsors>
+
+  <devfest-day-i id="register">
+    <h1 slot="header"
+      class="saturday__header"
+    >Sábado</h1>
+  </devfest-day-i>
+
+  <devfest-day-ii>
+    <h1 slot="header"
+      class="sunday__header"
+    >Domingo</h1>
+  </devfest-day-ii>
+
+  <devfest-footer>
+  </devfest-footer>
 </body>
 </html>
