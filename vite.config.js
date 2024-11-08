@@ -18,7 +18,7 @@ export default defineConfig({
   ],
 
   build: {
-    outDir: '../pages',
+    outDir: '../docs',
     assetsInlineLimit: Number.MAX_SAFE_INTEGER,
   },
 
