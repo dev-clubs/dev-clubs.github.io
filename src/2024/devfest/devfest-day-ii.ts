@@ -69,7 +69,7 @@ export class DevfestDayII extends LitElement {
     }
 
     .day-i__ticket {
-      margin-top: 1rem;
+      margin-top: 3rem;
       background-color: #5CDB6D;
     }
 
