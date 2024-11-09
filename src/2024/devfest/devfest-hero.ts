@@ -117,7 +117,7 @@ export class DevfestHeroElement extends LitElement {
       color: black;
       background-color: #F9AB00;
       border-radius: 5rem;
-      border: solid black 2px;
+      border: solid black 3px;
     }
   `;
 }
