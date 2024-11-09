@@ -6,28 +6,38 @@ import icnMonoBrackets from "../../assets/2024-DevFest/Brackets_mono_dark.svg"
 export class DevfestFooterElement extends LitElement {
   override render() {
     return html`
-      <div>
-        <h1>Google Developer Groups</h1>
-        <p>
-          <a href="https://linkedin.com/company/dev-queretaro"
-            target="_blank"
-            >#DevQuerėtaro
-          </a>
-        </p>
-      </div>
-      <img src=${icnMonoBrackets} />
+      <footer>
+        <div>
+          <h1>Google Developer Groups</h1>
+          <p>
+            <a href="https://linkedin.com/company/dev-queretaro"
+              target="_blank"
+              >#DevQuerėtaro
+            </a>
+          </p>
+        </div>
+        <img src=${icnMonoBrackets} />
+      </footer>
     `
   }
 
   static styles = css`
     :host {
+      display: block;
+      background-color: ghostwhite;
+    }
+    
+    footer {
+      margin: auto;
+      max-width: 40rem;
       display: flex;
       flex-direction: row;
       align-items: flex-end;
       justify-content: space-between;
       padding: 3rem 1rem;
       color: black;
-      opacity: 40%;
+      opacity: 20%;
+      
     }
 
     * { margin: 0; padding: 0;}

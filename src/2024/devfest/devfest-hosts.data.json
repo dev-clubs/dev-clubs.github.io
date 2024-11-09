@@ -1,0 +1,44 @@
+[
+    {
+        "name":         "Ramsés Magaña",
+        "title":        "GDG Co-organizer",
+        "organization": "Google Dev. Groups",
+        "main_contact": "https://www.linkedin.com/in/ramses-mr/",
+        "photoURL":     "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/ramses_maga%C3%B1a.jpeg"
+    }
+  , {
+        "name":         "Karina Maldonado",
+        "title":        "Presidenta de Vortex Robotics",
+        "organization": "Sociedad de Alumnos TEC",
+        "main_contact": "https://www.instagram.com/vortex.itsmq/",
+        "photoURL":     "https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2,f_auto,g_face,h_400,q_auto:good,w_400/v1/gcs/platform-data-goog/events/Kari_1IdI9ZT.jpg"
+    }
+  , {
+        "name":         "Yoshihiro Ortiz",
+        "title":        "GDG Chapter Lead",
+        "organization": "Google Dev. Groups",
+        "main_contact": "https://www.linkedin.com/in/yoshihiro-o/",
+        "photoURL":     "https://media.licdn.com/dms/image/v2/D5603AQEde8FMpk4NvA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1687964573348?e=1736380800&v=beta&t=zCGDr0ZAbWze8D5DhUOpih5MHOn3QkafgIvFs59GCDM"
+    }
+  , {
+        "name":         "Brisa Reyes",
+        "title":        "Sociedad de Alumnos",
+        "organization": "Tec. de Monterrey",
+        "main_contact": "https://www.instagram.com/vortex.itsmq/",
+        "photoURL":     "https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2,f_auto,g_face,h_200,q_auto:good,w_200/v1/gcs/platform-data-goog/events/Screenshot%25202024-10-19%2520at%25207.28.53%25E2%2580%25AFPM_Zf5HAbp.png"
+    }
+  , {
+        "name":         "Berenice Rivera",
+        "title":        "GDG Volunteer",
+        "organization": "Google Dev. Groups",
+        "main_contact": "https://www.linkedin.com/in/ux-berenice-rivera/",
+        "photoURL":     "https://res.cloudinary.com/startup-grind/image/upload/c_fill,w_250,h_250,g_center/c_fill,dpr_2.0,f_auto,g_center,q_auto:good/v1/gcs/platform-data-goog/avatars/berenice_rivera.jpg"
+    }
+  , {
+        "name":         "Diego Quezada",
+        "title":        "Sociedad de Alumnos",
+        "organization": "Tec. de Monterrey",
+        "main_contact": "https://www.instagram.com/vortex.itsmq/",
+        "photoURL":     "https://res.cloudinary.com/startup-grind/image/upload/c_fill,dpr_2,f_auto,g_face,h_200,q_auto:good,w_200/v1/gcs/platform-data-goog/events/Foto%2520Diego%2520Quezada_wnXNuUi.jpg"
+    }
+]

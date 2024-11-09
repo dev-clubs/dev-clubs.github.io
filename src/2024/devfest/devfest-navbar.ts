@@ -16,7 +16,7 @@ export class DevfestNavbarElement extends LitElement {
           href="https://linkedin.com/company/dev-queretaro"
           target="_blank"
         >
-          + Siguenos
+          + Síguenos
         </a>
       </nav>
     `

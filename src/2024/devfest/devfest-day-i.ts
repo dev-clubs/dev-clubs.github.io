@@ -36,11 +36,11 @@ export class DevfestDayI extends LitElement {
           <span></span>
           <span></span>
           <span></span>
+          <span>Gemini Workshop</span>
           <span></span>
           <span></span>
           <span></span>
           <span>Training de entrevistas</span>
-          <span>Gemini Workshop</span>
           <span></span>
           <span></span>
           <span></span>
@@ -49,26 +49,26 @@ export class DevfestDayI extends LitElement {
           <span class="lineup-header">Conferencias</span>
           <span></span>
           <span></span>
-          <span>Taller de Liderazgo</span>
-          <span>Procesos de reclutamiento</span>
+          <span>Taller de Liderazgo x Google</span>
+          <span>Sesión sobre reclutamiento</span>
+          <span>Kotlin Multi Platform</span>
           <span>Gemma</span>
-          <span>RAG en BigQuery</span>
           <span></span>
           <span>Diseño Web</span>
-          <span>Kotlin Multi Platform</span>
+          <span>RAG en BigQuery</span>
           <span>Automatización en Python</span>
           <span>Google Cloud</span>
           <span></span>
         </div>
         <div class="lineup-startups">
           <span class="lineup-header">Networking</span>
-          <span>Acceso</span>
+          <span>Acceso (10:00 AM)</span>
           <span>Inauguración</span>
           <span></span>
           <span></span>
           <span></span>
           <span></span>
-          <span>Startup show</span>
+          <span>Networking / Break</span>
           <span></span>
           <span></span>
           <span></span>
@@ -142,7 +142,7 @@ export class DevfestDayI extends LitElement {
     .lineup {
  
       margin: auto;
-      padding: 2rem .5ch;
+      padding: 4rem .5ch 1rem;
       max-width: 40rem;
       display: flex;
       align-self: center;
