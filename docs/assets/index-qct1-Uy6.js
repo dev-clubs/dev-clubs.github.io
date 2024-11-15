@@ -310,8 +310,8 @@ var Yt=Object.defineProperty;var en=(t,e,n)=>e in t?Yt(t,e,{enumerable:!0,config
         <div class="lineup-startups">
           <span class="lineup-header">Edificio 6</span>
           <span>Acceso (10:00 AM)</span>
-          <span class="yellow">Taller de Liderazgo x Google</span>
-          <span class="yellow">Sesión sobre reclutamiento</span>
+          <span class="yellow">Branding Personal x Google</span>
+          <span class="yellow">Sesión sobre reclutamiento x Google</span>
           <span></span>
           <span></span>
           <span></span>
