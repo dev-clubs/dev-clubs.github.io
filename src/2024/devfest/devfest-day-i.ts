@@ -30,50 +30,34 @@ export class DevfestDayI extends LitElement {
       </article>
 
       <div class="lineup">
-        <div class="lineup-workshops">
-          <span class="lineup-header">Workshops</span>
+        <div class="lineup-startups">
+          <span class="lineup-header">Edificio 6</span>
+          <span>Acceso (10:00 AM)</span>
+          <span class="yellow">Taller de Liderazgo x Google</span>
+          <span class="yellow">Sesión sobre reclutamiento</span>
           <span></span>
           <span></span>
           <span></span>
           <span></span>
-          <span>Gemini Workshop</span>
           <span></span>
-          <span></span>
-          <span></span>
-          <span>Training de entrevistas</span>
           <span></span>
           <span></span>
           <span></span>
         </div>
         <div class="lineup-talks">
-          <span class="lineup-header">Conferencias</span>
+          <span class="lineup-header">Auditorio</span>
           <span></span>
           <span></span>
-          <span>Taller de Liderazgo x Google</span>
-          <span>Sesión sobre reclutamiento</span>
+          <span></span>
           <span>Kotlin Multi Platform</span>
           <span>Gemma</span>
-          <span></span>
+          <span>Gemini Workshop</span>
+          <span class="pink">Pizza break</span>
+          <span>Training de entrevistas</span>
           <span>Diseño Web</span>
           <span>RAG en BigQuery</span>
           <span>Automatización en Python</span>
           <span>Google Cloud</span>
-          <span></span>
-        </div>
-        <div class="lineup-startups">
-          <span class="lineup-header">Networking</span>
-          <span>Acceso (10:00 AM)</span>
-          <span>Inauguración</span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span>Networking / Break</span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span>Networking</span>
         </div>
       </div>
     `
@@ -166,6 +150,14 @@ export class DevfestDayI extends LitElement {
         color: white;
         justify-content: center;
         height: 1rem;
+      }
+
+      > div span.yellow {
+        background-color: #FFD427 !important;
+      }
+
+      > div span.pink {
+        background-color: #FF7DAF !important;
       }
 
       > div span {
