@@ -1,0 +1,49 @@
+---
+const { title } = Astro.props;
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+		<title>{title}</title>
+    <style is:global>
+      :root {
+        --md-sys-color-background: #141218;
+        --md-sys-color-on-background: #E6E1E5;
+        --md-sys-color-primary: #D0BCFF;
+        --md-sys-color-on-primary: #381E72;
+        --md-sys-color-surface: #1D1B20;
+        --md-sys-color-surface-variant: #49454F;
+        --md-sys-color-outline: #938F99;
+      }
+      body {
+        background-color: var(--md-sys-color-background);
+        color: var(--md-sys-color-on-background);
+        font-family: 'Roboto', sans-serif;
+      }
+    </style>
+	</head>
+	<body class="min-h-screen flex flex-col">
+    <header class="p-4 bg-[var(--md-sys-color-surface)] sticky top-0 z-50 shadow-md">
+      <nav class="max-w-4xl mx-auto flex justify-between items-center">
+        <a href="/" class="text-xl font-bold text-[var(--md-sys-color-primary)]">DevClub</a>
+        <div class="space-x-4">
+          <a href="/contributors/wiki" class="hover:text-[var(--md-sys-color-primary)] transition-colors">Contributors</a>
+          <a href="/cloud-data-ai/wiki" class="hover:text-[var(--md-sys-color-primary)] transition-colors">Cloud Data AI</a>
+        </div>
+      </nav>
+    </header>
+		<main class="flex-grow max-w-4xl mx-auto w-full p-4">
+			<slot />
+		</main>
+    <footer class="p-4 text-center text-sm text-[var(--md-sys-color-outline)]">
+      &copy; {new Date().getFullYear()} DevClub. All rights reserved.
+    </footer>
+	</body>
+</html>

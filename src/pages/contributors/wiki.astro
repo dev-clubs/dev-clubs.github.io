@@ -1,0 +1,8 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import WikiEngine from '../../components/WikiEngine.jsx';
+---
+
+<MainLayout title="Contributors Wiki | DevClub">
+  <WikiEngine client:only="react" articlePath="/wiki/contributors.md" />
+</MainLayout>
