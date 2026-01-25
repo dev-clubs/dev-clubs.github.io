@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap');
+
+:root {
+    --md-sys-color-background: #141218;
+    --md-sys-color-on-background: #E6E1E5;
+    --md-sys-color-primary: #D0BCFF;
+    --md-sys-color-on-primary: #381E72;
+    --md-sys-color-surface: #1D1B20;
+    --md-sys-color-surface-variant: #49454F;
+    --md-sys-color-outline: #938F99;
+}
+
+body {
+    background-color: var(--md-sys-color-background);
+    color: var(--md-sys-color-on-background);
+    font-family: "Google Sans Flex", sans-serif;
+    font-optical-sizing: auto;
+    font-variation-settings:
+        "slnt" 0,
+        "wdth" 100,
+        "GRAD" 0,
+        "ROND" 0;
+}
+
+.font-flex-light {
+    font-weight: 300;
+}
+
+.font-flex-regular {
+    font-weight: 400;
+}
+
+.font-flex-medium {
+    font-weight: 500;
+}
+
+.font-flex-bold {
+    font-weight: 700;
+}
