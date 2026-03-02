@@ -1,8 +1,23 @@
 ---
-import MainLayout from '../../layouts/MainLayout.astro';
-import WikiEngine from '../../components/WikiEngine.jsx';
+import ClubPage from "../../layouts/ClubPage.astro";
 ---
 
-<MainLayout title="Contributors Wiki | DevClub">
-  <WikiEngine client:only="react" articlePath="/wiki/contributors.md" />
-</MainLayout>
+<ClubPage
+  title="Contributors Wiki — GDG Querétaro"
+  clubName="Contributors"
+  clubDescription="Guía para contribuidores del proyecto GDG Querétaro. Setup del proyecto, guidelines de código, y flujo de trabajo para colaborar en el sitio web y recursos de la comunidad."
+  badgeLabel="Open Source"
+  badgeColor="#4285F4"
+  articlePath="/wiki/contributors.md"
+  icon="code"
+  sidebarLinks={[
+    {
+      label: "Repositorio en GitHub",
+      href: "https://github.com/dev-clubs/dev-clubs.github.io",
+    },
+    {
+      label: "Guía de Contribución",
+      href: "https://github.com/dev-clubs/dev-clubs.github.io/blob/main/CONTRIBUTING.md",
+    },
+  ]}
+/>
