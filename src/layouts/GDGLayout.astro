@@ -40,6 +40,7 @@ const canonical = Astro.url.href;
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={ogImage} />
+        <meta name="theme-color" content="#0F1115" />
 
         <!-- Favicon -->
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -56,6 +57,38 @@ const canonical = Astro.url.href;
         <style is:global>
             @import "../styles/global.css";
         </style>
+        <script is:inline>
+            (() => {
+                const root = document.documentElement;
+                const allowedModes = new Set(["system", "light", "dark"]);
+                const allowedAccents = new Set([
+                    "blue",
+                    "green",
+                    "red",
+                    "yellow",
+                ]);
+                const rawMode = localStorage.getItem("theme-mode");
+                const rawAccent = localStorage.getItem("theme-accent");
+                const storedMode = allowedModes.has(rawMode)
+                    ? rawMode
+                    : "system";
+                const storedAccent = allowedAccents.has(rawAccent)
+                    ? rawAccent
+                    : "blue";
+                const prefersDark = window.matchMedia(
+                    "(prefers-color-scheme: dark)",
+                ).matches;
+                const resolvedMode =
+                    storedMode === "system"
+                        ? prefersDark
+                            ? "dark"
+                            : "light"
+                        : storedMode;
+                root.dataset.themePreference = storedMode;
+                root.dataset.themeMode = resolvedMode;
+                root.dataset.themeAccent = storedAccent;
+            })();
+        </script>
     </head>
     <body>
         <!-- ═══ NAVBAR ═══ -->
@@ -305,6 +338,37 @@ const canonical = Astro.url.href;
                     Instagram
                 </a>
             </div>
+            <div class="mobile-menu__theme">
+                <h5>Tema</h5>
+                <div class="mobile-menu__theme-modes">
+                    <button type="button" data-theme-mode="system">System</button>
+                    <button type="button" data-theme-mode="light">Light</button>
+                    <button type="button" data-theme-mode="dark">Dark</button>
+                </div>
+                <h5>Color de página</h5>
+                <div class="mobile-menu__theme-colors">
+                    <button
+                        type="button"
+                        data-theme-accent="blue"
+                        style="--swatch:#4285F4;"
+                        aria-label="Azul"></button>
+                    <button
+                        type="button"
+                        data-theme-accent="green"
+                        style="--swatch:#34A853;"
+                        aria-label="Verde"></button>
+                    <button
+                        type="button"
+                        data-theme-accent="red"
+                        style="--swatch:#EA4335;"
+                        aria-label="Rojo"></button>
+                    <button
+                        type="button"
+                        data-theme-accent="yellow"
+                        style="--swatch:#F9AB00;"
+                        aria-label="Amarillo"></button>
+                </div>
+            </div>
         </div>
         <a
             href="https://gdg.community.dev/gdg-queretaro/"
@@ -452,6 +516,70 @@ const canonical = Astro.url.href;
                 document.body.classList.toggle("menu-open", isOpen);
                 document.body.style.overflow = isOpen ? "hidden" : "";
             }
+
+            // Theme controls
+            const root = document.documentElement;
+            const mediaPrefersDark = window.matchMedia(
+                "(prefers-color-scheme: dark)",
+            );
+            const modeButtons = document.querySelectorAll("[data-theme-mode]");
+            const colorButtons = document.querySelectorAll("[data-theme-accent]");
+
+            const applyTheme = () => {
+                const preference = root.dataset.themePreference || "system";
+                const resolvedMode =
+                    preference === "system"
+                        ? mediaPrefersDark.matches
+                            ? "dark"
+                            : "light"
+                        : preference;
+                root.dataset.themeMode = resolvedMode;
+            };
+
+            const syncThemeControls = () => {
+                modeButtons.forEach((btn) => {
+                    const isActive =
+                        btn.dataset.themeMode ===
+                        (root.dataset.themePreference || "system");
+                    btn.classList.toggle("is-active", isActive);
+                    btn.setAttribute("aria-pressed", String(isActive));
+                });
+                colorButtons.forEach((btn) => {
+                    const isActive =
+                        btn.dataset.themeAccent ===
+                        (root.dataset.themeAccent || "blue");
+                    btn.classList.toggle("is-active", isActive);
+                    btn.setAttribute("aria-pressed", String(isActive));
+                });
+            };
+
+            modeButtons.forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    const mode = btn.dataset.themeMode || "system";
+                    root.dataset.themePreference = mode;
+                    localStorage.setItem("theme-mode", mode);
+                    applyTheme();
+                    syncThemeControls();
+                });
+            });
+
+            colorButtons.forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    const accent = btn.dataset.themeAccent || "blue";
+                    root.dataset.themeAccent = accent;
+                    localStorage.setItem("theme-accent", accent);
+                    syncThemeControls();
+                });
+            });
+
+            mediaPrefersDark.addEventListener("change", () => {
+                if ((root.dataset.themePreference || "system") === "system") {
+                    applyTheme();
+                }
+            });
+
+            applyTheme();
+            syncThemeControls();
 
             hamburger.addEventListener("click", toggleMenu);
             overlay.addEventListener("click", toggleMenu);
