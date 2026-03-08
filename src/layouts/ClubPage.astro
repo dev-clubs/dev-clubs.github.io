@@ -39,7 +39,7 @@ const iconPath = icons[icon] || icons.cloud;
 
 <GDGLayout title={title}>
     <!-- Club Hero -->
-    <section class="club-hero container">
+    <section class="club-hero container" style={`--brand-primary: ${badgeColor}`}>
         <div class="club-hero__inner">
             <div class="club-hero__text" data-animate>
                 <span
@@ -80,7 +80,7 @@ const iconPath = icons[icon] || icons.cloud;
     <section class="club-content container">
         <div class="club-content__inner">
             <div class="club-content__main">
-                <WikiEngine client:only="react" articlePath={articlePath} />
+                <WikiEngine client:only="react" articlePath={articlePath} themeColor={badgeColor} />
             </div>
 
             {

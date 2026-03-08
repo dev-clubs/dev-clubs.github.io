@@ -4,7 +4,7 @@ Welcome to the DevClub Wiki. This content is rendered dynamically from `public/w
 
 ## Features
 - **Dynamic Rendering**: Sourced from markdown files or API.
-- **Material Design 3**: Styled with Tailwind CSS.
+- **Material Design 3**: Styled with vainilla CSS.
 - **Dark Mode**: Optimized for low-light environments.
 
 ## getting started

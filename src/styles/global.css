@@ -1,3 +1,5 @@
+@import "./material.css";
+
 /* ═══════════════════════════════════════════════════════
    GDG Querétaro — Swiss Grid Design System
    Pure vanilla CSS. No frameworks.
@@ -193,6 +195,48 @@ button {
   font-size: var(--fs-code);
   letter-spacing: 0.03em;
   text-transform: uppercase;
+}
+
+/* ── Wiki engine theme support ─────────────────────────── */
+.wiki-engine {
+  /* if no theme explicitly provided we fall back to the global brand color */
+  --wiki-theme: var(--brand-primary);
+}
+.wiki-engine a {
+  color: var(--wiki-theme);
+}
+.wiki-engine h1,
+.wiki-engine h2,
+.wiki-engine h3 {
+  color: var(--wiki-theme);
+}
+
+/* ── Avatar tooltip styling ────────────────────────────── */
+.avatar-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.avatar-wrapper::after {
+  content: attr(data-handle);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.1s ease-out;
+  margin-bottom: 0.4rem;
+  z-index: 10;
+}
+.avatar-wrapper:hover::after,
+.avatar-wrapper:focus-within::after {
+  opacity: 1;
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -667,6 +711,7 @@ button {
 .hero__text h1 {
   font-size: var(--fs-display);
   line-height: 1.05;
+  font-weight: 300;
   overflow-wrap: break-word;
   word-break: break-word;
   max-width: 14ch;

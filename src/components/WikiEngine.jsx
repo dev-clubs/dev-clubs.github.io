@@ -1,10 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { marked } from 'marked';
 
-export default function WikiEngine({ articlePath = '/wiki/article.md' }) {
+// tiny frontmatter parser that avoids Node-specific APIs like Buffer
+function parseFrontmatter(text) {
+    if (text.startsWith('---')) {
+        const endIdx = text.indexOf('---', 3);
+        if (endIdx !== -1) {
+            const rawYaml = text.slice(3, endIdx).trim();
+            const body = text.slice(endIdx + 3).trim();
+            const data = {};
+            rawYaml.split(/\r?\n/).forEach((line) => {
+                const m = line.match(/^([^:]+):\s*(.*)$/);
+                if (m) {
+                    let key = m[1].trim();
+                    let val = m[2].trim();
+                    if ((val.startsWith('"') && val.endsWith('"')) ||
+                        (val.startsWith("'") && val.endsWith("'"))) {
+                        val = val.slice(1, -1);
+                    }
+                    data[key] = val;
+                }
+            });
+            return { data, content: body };
+        }
+    }
+    return { data: {}, content: text };
+}
+
+export default function WikiEngine({ articlePath = '/wiki/article.md', themeColor }) {
     const [content, setContent] = useState('');
+    const [meta, setMeta] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [color, setColor] = useState(themeColor || '');
 
     useEffect(() => {
         async function loadWiki() {
@@ -17,8 +45,19 @@ export default function WikiEngine({ articlePath = '/wiki/article.md' }) {
                 }
 
                 const markdown = await response.text();
-                const html = marked.parse(markdown);
+                // parse frontmatter using lightweight helper
+                const { data, content: rawContent } = parseFrontmatter(markdown);
+                const html = marked.parse(rawContent);
                 setContent(html);
+                setMeta(data || {});
+
+                // determine theme color: frontmatter overrides prop
+                if (data && (data.themeColor || data.color)) {
+                    setColor(data.themeColor || data.color);
+                } else if (themeColor) {
+                    setColor(themeColor);
+                }
+
                 setError(null);
             } catch (err) {
                 console.error('Failed to load wiki:', err);
@@ -29,7 +68,7 @@ export default function WikiEngine({ articlePath = '/wiki/article.md' }) {
         }
 
         loadWiki();
-    }, [articlePath]);
+    }, [articlePath, themeColor]);
 
     if (loading) {
         return (
@@ -61,10 +100,19 @@ export default function WikiEngine({ articlePath = '/wiki/article.md' }) {
         );
     }
 
+    // build inline style for theming
+    const wrapperStyle = {};
+    if (color) {
+        wrapperStyle['--brand-primary'] = color;
+        wrapperStyle['--wiki-theme'] = color;
+    }
+
     return (
-        <div
-            className="prose"
-            dangerouslySetInnerHTML={{ __html: content }}
-        />
+        <div className="wiki-engine" style={wrapperStyle}>
+            <div
+                className="prose"
+                dangerouslySetInnerHTML={{ __html: content }}
+            />
+        </div>
     );
 }
