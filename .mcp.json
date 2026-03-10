@@ -12,24 +12,14 @@
             "type": "http",
             "url": "http://localhost:6006/mcp"
         },
-        "web-dev-docs": {
-            "command": "npx",
-            "args": [
-                "-y",
-                "@modelcontextprotocol/server-puppeteer"
-            ],
-            "env": {}
-        },
         "figma": {
             "url": "https://mcp.figma.com/mcp",
             "type": "http"
-        },
-        "google-developer-knowledge": {
-            "type": "http",
-            "url": "https://developerknowledge.googleapis.com/mcp",
-            "headers": {
-                "X-Goog-Api-Key": "AIzaSyDgMsvC-FBfd6kTnTyOLRDgHs9Z4KatVNk"
-            }
         }
-    }
+    },
+    "packages": [
+        "src",
+        "libraries",
+        "."
+    ]
 }
