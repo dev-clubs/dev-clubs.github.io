@@ -64,11 +64,9 @@ Use when adding a new route to the static site.
    - Content grids: `ui-grid` or CSS Grid with `--ui-ref-spacing-*`
    - Typography: `ui-display`, `ui-headline`, `ui-body`, `ui-label`
 
-4. If the page needs dynamic markdown rendering, use `WikiEngine.jsx` with `client:only="react"`:
-   ```astro
-   import WikiEngine from '../components/WikiEngine.jsx';
-   <WikiEngine src="/wiki/<file>.md" client:only="react" />
-   ```
+4. If the page needs wiki markdown routing, update `src/pages/[...slug].astro` instead of creating another page file.
+   - Keep URL mapping aligned with the wiki route contract in `spec/markdown-engine/CONTEXT.md`.
+   - Reuse `ClubPage.astro` so the wiki UI shell stays unchanged.
 
 5. Run `npm run build` and confirm `docs/` output is correct.
 

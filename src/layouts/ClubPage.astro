@@ -8,9 +8,11 @@ export interface Props {
     clubDescription: string;
     badgeLabel: string;
     badgeColor: string; // Google brand color
-    articlePath: string;
+    articlePath?: string;
+    contentComponent?: any;
     icon?: string; // 'cloud' | 'diversity' | 'terminal' | 'code'
     sidebarLinks?: Array<{ label: string; href: string }>;
+    contentsLinks?: Array<{ label: string; href: string }>;
 }
 
 const {
@@ -20,8 +22,10 @@ const {
     badgeLabel,
     badgeColor,
     articlePath,
+    contentComponent: Content,
     icon = "cloud",
     sidebarLinks = [],
+    contentsLinks = [],
 } = Astro.props;
 
 // Map icon name to SVG path
@@ -80,22 +84,57 @@ const iconPath = icons[icon] || icons.cloud;
     <section class="club-content container">
         <div class="club-content__inner">
             <div class="club-content__main">
-                <WikiEngine client:only="react" articlePath={articlePath} themeColor={badgeColor} />
+                {
+                    Content ? (
+                        <div
+                            class="wiki-engine"
+                            style={`--brand-primary: ${badgeColor}; --wiki-theme: ${badgeColor};`}
+                        >
+                            <div class="prose">
+                                <Content />
+                            </div>
+                        </div>
+                    ) : (
+                        <WikiEngine
+                            client:only="react"
+                            articlePath={articlePath}
+                            themeColor={badgeColor}
+                        />
+                    )
+                }
             </div>
 
             {
-                sidebarLinks.length > 0 && (
+                (sidebarLinks.length > 0 || contentsLinks.length > 0) && (
                     <aside class="club-content__sidebar">
-                        <div class="club-content__sidebar-card">
-                            <h4>Recursos</h4>
-                            <ul>
-                                {sidebarLinks.map((link) => (
-                                    <li>
-                                        <a href={link.href}>{link.label}</a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
+                        {
+                            contentsLinks.length > 0 && (
+                                <div class="club-content__sidebar-card">
+                                    <h4>Contenido</h4>
+                                    <ul>
+                                        {contentsLinks.map((link) => (
+                                            <li>
+                                                <a href={link.href}>{link.label}</a>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )
+                        }
+                        {
+                            sidebarLinks.length > 0 && (
+                                <div class="club-content__sidebar-card">
+                                    <h4>Recursos</h4>
+                                    <ul>
+                                        {sidebarLinks.map((link) => (
+                                            <li>
+                                                <a href={link.href}>{link.label}</a>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )
+                        }
                     </aside>
                 )
             }

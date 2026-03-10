@@ -6,7 +6,10 @@ Official website for GDG Querétaro, built with Astro and the **Expressive Vaini
 
 - Framework: Astro 4 (static output to `docs/`)
 - Design system: Expressive Vainilla — vanilla CSS, token-layered, in `src/styles/expressive-vainilla.css`
-- Dynamic wiki rendering: React + `marked` via `src/components/WikiEngine.jsx`
+- Dynamic wiki routing: Astro catch-all route via `src/pages/[...slug].astro`
+- Markdown rendering: Astro Markdown imports from `public/wiki/**/*.md`
+- Events data: `src/data/events.ts` with optional build-time sync from Google Calendar
+- Cleanup: `postbuild` runs `scripts/clean-docs-wiki.js` to strip the copied `.md` files from `docs/wiki/` so `public/wiki` stays the writable source.
 - Interactive tutorials: `playground-elements` (Google) — serverless JS execution via Service Worker
 - Component documentation: Storybook 10 (`Expressive Vainilla/*` stories)
 - LLM context & specs: `/spec` and `/libraries`
@@ -25,11 +28,8 @@ src/
     ClubPage.astro
   pages/
     index.astro
-    cloud-ai/index.astro + wiki.astro
-    empowerment/index.astro + wiki.astro
-    computer-science/index.astro + wiki.astro
-    design-code/index.astro + wiki.astro
-    contributors/wiki.astro
+    [...slug].astro
+    events/index.astro
   stories/expressive/          ← Storybook component stories
     Elements.stories.jsx
     Widgets.stories.jsx
@@ -58,15 +58,23 @@ public/
   assets/
     Google-Developer-Group__title-font-branded.svg
   wiki/
-    cloud-ai.md
-    empowerment.md
-    computer-science.md
-    design-code.md
-    contributors.md
+    contributors/
+      README.md
+      <club>.md
+    cloud-ai/
+      README.md
+      <course-or-lesson>.md
+    empowerment/
+      README.md
+    design-code/
+      README.md
+    computer-science/
+      README.md
 
 spec/
   ARCHITECTURE.md
   WORKFLOWS.md
+  events-calendar/
   expressive-vainilla/         ← design system state, decisions, todos
   playground-ide/              ← playground-elements integration spec
   markdown-engine/
@@ -127,6 +135,7 @@ See `spec/playground-ide/CONTEXT.md` for full wiring details, CSS theming bridge
 - Theme controls: Mode `system|light|dark`, Expression `low|medium|high`.
 - Homepage: hero with club cards, events section, contributors section.
 - Club pages: hero header, wiki article body, right sidebar resources card.
+- Events page: shared event cards backed by `src/data/events.ts`, ready for Google Calendar sync plus banner/photo enrichment.
 
 ## Important Links
 
@@ -160,3 +169,10 @@ Full agentic workflow playbooks: `spec/WORKFLOWS.md`.
 ## Build Output
 
 Production build is generated in `docs/` (GitHub Pages target).
+
+## Wiki Route Contract
+
+- `/public/wiki/<club>/README.md` -> `/<club>/`
+- `/public/wiki/<club>/<course>/<lesson>.md` -> `/<club>/<course>/<lesson>/`
+- `/public/wiki/contributors/<club>.md` -> `/<club>/contributors/`
+- `/public/wiki/contributors/README.md` -> `/contributors/`
