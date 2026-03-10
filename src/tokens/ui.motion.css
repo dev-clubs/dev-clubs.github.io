@@ -1,0 +1,38 @@
+:root {
+  --ui-motion-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ui-motion-ease-expressive: cubic-bezier(0.21, 0.88, 0.22, 1);
+
+  --ui-motion-duration-fast: 140ms;
+  --ui-motion-duration-base: 240ms;
+  --ui-motion-duration-slow: 420ms;
+
+  --ui-motion-lift-sm: -2px;
+  --ui-motion-lift-md: -5px;
+}
+
+:root[data-ui-expression="low"] {
+  --ui-motion-duration-base: 180ms;
+  --ui-motion-duration-slow: 280ms;
+  --ui-motion-lift-sm: -1px;
+  --ui-motion-lift-md: -2px;
+}
+
+:root[data-ui-expression="high"] {
+  --ui-motion-duration-base: 300ms;
+  --ui-motion-duration-slow: 520ms;
+  --ui-motion-lift-sm: -3px;
+  --ui-motion-lift-md: -7px;
+  --ui-sys-shape-card: var(--ev-ref-radius-card-lg);
+  --ui-sys-shadow-2: var(--ev-ref-shadow-3);
+  --ui-sys-shadow-overlap: var(--ev-ref-shadow-overlap);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --ui-motion-duration-fast: 1ms;
+    --ui-motion-duration-base: 1ms;
+    --ui-motion-duration-slow: 1ms;
+    --ui-motion-lift-sm: 0;
+    --ui-motion-lift-md: 0;
+  }
+}

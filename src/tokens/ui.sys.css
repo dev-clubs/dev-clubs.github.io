@@ -1,0 +1,124 @@
+:root {
+  --ui-sys-font-primary: var(--ev-ref-font-primary);
+  --ui-sys-font-mono: var(--ev-ref-font-mono);
+
+  --ui-sys-color-background: var(--ev-ref-color-paper-100);
+  --ui-sys-color-background-muted: var(--ev-ref-color-paper-96);
+  --ui-sys-color-surface: rgba(255, 255, 255, 0.88);
+  --ui-sys-color-surface-raised: #ffffff;
+  --ui-sys-color-on-surface: var(--ev-ref-color-ink-100);
+  --ui-sys-color-on-surface-muted: var(--ev-ref-color-ink-80);
+  --ui-sys-color-outline: rgba(8, 10, 20, 0.18);
+  --ui-sys-color-outline-strong: rgba(8, 10, 20, 0.40);
+  --ui-sys-color-gridline: rgba(8, 10, 20, 0.05);
+
+  --ui-sys-color-primary: var(--ev-ref-color-blue-40);
+  --ui-sys-color-on-primary: var(--ev-ref-color-white);
+  --ui-sys-color-primary-soft: color-mix(in srgb, var(--ev-ref-color-blue-95) 72%, white);
+
+  --ui-sys-color-secondary: var(--ev-ref-color-red-40);
+  --ui-sys-color-on-secondary: var(--ev-ref-color-white);
+  --ui-sys-color-secondary-soft: color-mix(in srgb, var(--ev-ref-color-red-95) 74%, white);
+
+  --ui-sys-color-tertiary: var(--ev-ref-color-green-40);
+  --ui-sys-color-on-tertiary: var(--ev-ref-color-white);
+  --ui-sys-color-tertiary-soft: color-mix(in srgb, var(--ev-ref-color-green-95) 76%, white);
+
+  --ui-sys-color-accent: var(--ev-ref-color-yellow-40);
+  --ui-sys-color-on-accent: #1f1f1f;
+  --ui-sys-color-accent-soft: color-mix(in srgb, var(--ev-ref-color-yellow-95) 72%, white);
+
+  --ui-sys-color-danger: var(--ev-ref-color-error);
+
+  --ui-sys-surface-hero: var(--ui-sys-color-surface-raised);
+
+  --ui-sys-surface-overlay: var(--ui-sys-color-background-muted);
+
+  --ui-sys-shape-control: var(--ev-ref-radius-pill);
+  --ui-sys-shape-card: var(--ev-ref-radius-card);
+  --ui-sys-shape-card-lg: var(--ev-ref-radius-card-lg);
+  --ui-sys-shape-panel: var(--ev-ref-radius-panel);
+
+  --ui-sys-space-inline-start: var(--ev-ref-grid-inset-start);
+  --ui-sys-space-inline-end: var(--ev-ref-grid-inset-end);
+  --ui-sys-space-section: clamp(2.5rem, 4vw, 4rem);
+
+  --ui-sys-border-subtle: 1px solid var(--ui-sys-color-outline);
+  --ui-sys-border-strong: 1px solid var(--ui-sys-color-outline-strong);
+
+  --ui-sys-shadow-1: var(--ev-ref-shadow-1);
+  --ui-sys-shadow-2: var(--ev-ref-shadow-2);
+  --ui-sys-shadow-3: var(--ev-ref-shadow-3);
+  --ui-sys-shadow-overlap: var(--ev-ref-shadow-overlap);
+
+  --ui-sys-focus-ring:
+    0 0 0 2px var(--ui-sys-color-background),
+    0 0 0 4px var(--ui-sys-color-primary);
+}
+
+:root[data-ui-theme="dark"] {
+  --ui-sys-color-background: var(--ev-ref-color-charcoal-100);
+  --ui-sys-color-background-muted: var(--ev-ref-color-charcoal-92);
+  --ui-sys-color-surface: color-mix(in srgb, var(--ev-ref-color-charcoal-84) 86%, black);
+  --ui-sys-color-surface-raised: var(--ev-ref-color-charcoal-84);
+  --ui-sys-color-on-surface: #f7f8fc;
+  --ui-sys-color-on-surface-muted: #c8cfdf;
+  --ui-sys-color-outline: rgba(220, 228, 255, 0.18);
+  --ui-sys-color-outline-strong: rgba(220, 228, 255, 0.40);
+  --ui-sys-color-gridline: rgba(220, 228, 255, 0.06);
+
+  --ui-sys-color-primary: var(--ev-ref-color-blue-80);
+  --ui-sys-color-on-primary: #0a192f;
+  --ui-sys-color-primary-soft: color-mix(in srgb, var(--ev-ref-color-blue-30) 48%, transparent);
+
+  --ui-sys-color-secondary: var(--ev-ref-color-red-80);
+  --ui-sys-color-on-secondary: #2a0b0a;
+  --ui-sys-color-secondary-soft: color-mix(in srgb, var(--ev-ref-color-red-30) 54%, transparent);
+
+  --ui-sys-color-tertiary: var(--ev-ref-color-green-80);
+  --ui-sys-color-on-tertiary: #0b2e13;
+  --ui-sys-color-tertiary-soft: color-mix(in srgb, var(--ev-ref-color-green-30) 54%, transparent);
+
+  --ui-sys-color-accent: var(--ev-ref-color-yellow-60);
+  --ui-sys-color-on-accent: #1f1f1f;
+  --ui-sys-color-accent-soft: color-mix(in srgb, var(--ev-ref-color-yellow-30) 48%, transparent);
+
+  --ui-sys-surface-hero: var(--ui-sys-color-surface-raised);
+
+  --ui-sys-surface-overlay: var(--ui-sys-color-background-muted);
+
+  --ui-sys-focus-ring:
+    0 0 0 2px var(--ev-ref-color-charcoal-100),
+    0 0 0 4px var(--ui-sys-color-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-ui-theme="light"]):not([data-ui-theme="dark"]) {
+    --ui-sys-color-background: var(--ev-ref-color-charcoal-100);
+    --ui-sys-color-background-muted: var(--ev-ref-color-charcoal-92);
+    --ui-sys-color-surface: color-mix(in srgb, var(--ev-ref-color-charcoal-84) 86%, black);
+    --ui-sys-color-surface-raised: var(--ev-ref-color-charcoal-84);
+    --ui-sys-color-on-surface: #f7f8fc;
+    --ui-sys-color-on-surface-muted: #c8cfdf;
+    --ui-sys-color-outline: rgba(220, 228, 255, 0.18);
+    --ui-sys-color-outline-strong: rgba(220, 228, 255, 0.40);
+    --ui-sys-color-gridline: rgba(220, 228, 255, 0.06);
+    --ui-sys-color-primary: var(--ev-ref-color-blue-80);
+    --ui-sys-color-on-primary: #0a192f;
+    --ui-sys-color-primary-soft: color-mix(in srgb, var(--ev-ref-color-blue-30) 48%, transparent);
+    --ui-sys-color-secondary: var(--ev-ref-color-red-80);
+    --ui-sys-color-on-secondary: #2a0b0a;
+    --ui-sys-color-secondary-soft: color-mix(in srgb, var(--ev-ref-color-red-30) 54%, transparent);
+    --ui-sys-color-tertiary: var(--ev-ref-color-green-80);
+    --ui-sys-color-on-tertiary: #0b2e13;
+    --ui-sys-color-tertiary-soft: color-mix(in srgb, var(--ev-ref-color-green-30) 54%, transparent);
+    --ui-sys-color-accent: var(--ev-ref-color-yellow-60);
+    --ui-sys-color-on-accent: #1f1f1f;
+    --ui-sys-color-accent-soft: color-mix(in srgb, var(--ev-ref-color-yellow-30) 48%, transparent);
+    --ui-sys-surface-hero: var(--ui-sys-color-surface-raised);
+    --ui-sys-surface-overlay: var(--ui-sys-color-background-muted);
+    --ui-sys-focus-ring:
+      0 0 0 2px var(--ev-ref-color-charcoal-100),
+      0 0 0 4px var(--ui-sys-color-primary);
+  }
+}

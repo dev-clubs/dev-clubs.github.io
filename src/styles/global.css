@@ -1,4 +1,4 @@
-@import "./material.css";
+@import "./expressive-vainilla.css";
 
 /* ═══════════════════════════════════════════════════════
    GDG Querétaro — Swiss Grid Design System
@@ -21,7 +21,7 @@
   --bg-surface: #161921;
   --bg-surface-alt: #1C2029;
   --bg-elevated: #232730;
-  --fg: #FFFFFF;
+  --fg: #E5E7EB;
   --fg-muted: #9CA3AF;
   --fg-subtle: #6B7280;
   --border-subtle: rgba(255, 255, 255, 0.06);
@@ -112,7 +112,7 @@
   --bg-surface: #161921;
   --bg-surface-alt: #1C2029;
   --bg-elevated: #232730;
-  --fg: #FFFFFF;
+  --fg: #E5E7EB;
   --fg-muted: #9CA3AF;
   --fg-subtle: #6B7280;
   --border-subtle: rgba(255, 255, 255, 0.06);
@@ -202,9 +202,11 @@ button {
   /* if no theme explicitly provided we fall back to the global brand color */
   --wiki-theme: var(--brand-primary);
 }
+
 .wiki-engine a {
   color: var(--wiki-theme);
 }
+
 .wiki-engine h1,
 .wiki-engine h2,
 .wiki-engine h3 {
@@ -216,6 +218,7 @@ button {
   position: relative;
   display: inline-block;
 }
+
 .avatar-wrapper::after {
   content: attr(data-handle);
   position: absolute;
@@ -234,6 +237,7 @@ button {
   margin-bottom: 0.4rem;
   z-index: 10;
 }
+
 .avatar-wrapper:hover::after,
 .avatar-wrapper:focus-within::after {
   opacity: 1;
@@ -986,6 +990,7 @@ button {
   line-height: 1.2;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   min-height: 5rem;
@@ -1350,7 +1355,7 @@ button {
   font-size: var(--fs-h3);
 }
 
-.prose > :first-child {
+.prose> :first-child {
   margin-top: 0;
 }
 

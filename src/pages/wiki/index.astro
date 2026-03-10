@@ -1,0 +1,46 @@
+---
+import GDGLayout from "../../layouts/GDGLayout.astro";
+import fs from "fs";
+import path from "path";
+
+const wikiRoot = path.resolve(process.cwd(), "public/wiki");
+
+function getAllMarkdownFiles(dir: string, base: string[] = []) {
+  let results: string[] = [];
+  const list = fs.readdirSync(dir);
+  list.forEach((file) => {
+    const filePath = path.join(dir, file);
+    const rel = [...base, file];
+    const stat = fs.statSync(filePath);
+    if (stat && stat.isDirectory()) {
+      results = results.concat(getAllMarkdownFiles(filePath, rel));
+    } else if (file.endsWith(".md")) {
+      results.push(rel.join("/"));
+    }
+  });
+  return results;
+}
+
+const files = getAllMarkdownFiles(wikiRoot, []);
+---
+
+<GDGLayout title="Wiki Index — GDG Querétaro">
+  <section class="container" style="padding-top: 4rem; padding-bottom: 4rem;">
+    <h1>Wiki Index</h1>
+    <ul>
+      {
+        files.map((file) => (
+          <li>
+            <a
+              href={
+                "/wiki/" + file.replace(/\.md$/, "").replace(/\/README$/, "")
+              }
+            >
+              {file.replace(/\/README\.md$/, "").replace(/\.md$/, "")}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</GDGLayout>

@@ -1,0 +1,78 @@
+import { Meta, Canvas, Controls, Description } from "@storybook/addon-docs/blocks";
+import * as ElementStories from "./Elements.stories";
+
+<Meta title="Expressive Vainilla/Overview" />
+
+# expressive vainilla
+
+`expressive vainilla` is a vanilla CSS token system that merges:
+
+- Swiss intrinsic structure from [`libraries/swiss_intrinsic.md`](/libraries/swiss_intrinsic.md)
+- Material Expressive shape/elevation behavior from [`libraries/expressive.html`](/libraries/expressive.html)
+
+## Core Contract
+
+- Strict 12-column asymmetrical grid with strong negative space and flush-left hierarchy
+- Pill controls and rounded cards (`24px` to `32px`) with layered colored shadows
+- High-contrast palette using off-white and deep charcoal surfaces plus blue, red, and green accents
+- `Google Sans` for layout typography and headings
+- `Roboto Mono` for data, code, snippets, and secondary technical labels
+
+## Token Layers
+
+| File | Layer | Purpose |
+|---|---|---|
+| `src/tokens/ui.ref.css` | `ui.ref` | Raw palette, spacing scale, radii, shadow primitives |
+| `src/tokens/ui.sys.css` | `ui.sys` | Semantic color roles, theme switching via `data-ui-theme` |
+| `src/tokens/ui.type.css` | `ui.type` | Google Sans display/body scale, Roboto Mono data classes |
+| `src/tokens/ui.motion.css` | `ui.motion` | Easing + duration contracts, expression overrides via `data-ui-expression` |
+| `src/tokens/ui.comp.css` | `ui.comp` | Component primitives and grid utilities |
+
+---
+
+## Interactive Components
+
+Use the Controls panel below each example to adjust props and see how tokens respond.
+Toggle **Theme** (light / dark / system) and **Expression** (low / medium / high) in the Storybook toolbar to observe system-wide token changes.
+
+### Button
+
+<Canvas of={ElementStories.Button} />
+<Controls of={ElementStories.Button} />
+
+### Chip
+
+<Canvas of={ElementStories.Chip} />
+<Controls of={ElementStories.Chip} />
+
+### Note
+
+<Canvas of={ElementStories.Note} />
+<Controls of={ElementStories.Note} />
+
+### Input Field
+
+<Canvas of={ElementStories.InputField} />
+<Controls of={ElementStories.InputField} />
+
+### Select Field
+
+<Canvas of={ElementStories.SelectField} />
+<Controls of={ElementStories.SelectField} />
+
+### Card
+
+<Canvas of={ElementStories.Card} />
+<Controls of={ElementStories.Card} />
+
+---
+
+## Storybook Structure
+
+- `Expressive Vainilla/Overview` — this page
+- `Expressive Vainilla/Foundations` — token taxonomy and type scale
+- `Expressive Vainilla/Grid System` — interactive grid simulator
+- `Expressive Vainilla/Elements` — gallery and individual interactive component docs
+- `Expressive Vainilla/Color Palette` — tonal scale reference
+- `Expressive Vainilla/Widgets` — operational widget patterns
+- `Expressive Vainilla/Dashboard Landing` — full dashboard composition

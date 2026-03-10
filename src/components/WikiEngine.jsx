@@ -58,6 +58,11 @@ export default function WikiEngine({ articlePath = '/wiki/article.md', themeColo
                     setColor(themeColor);
                 }
 
+                // parse title for document
+                if (data && data.title) {
+                    document.title = `${data.title} - GDG Querétaro Wiki`;
+                }
+
                 setError(null);
             } catch (err) {
                 console.error('Failed to load wiki:', err);

@@ -1,12 +1,12 @@
-import "../src/styles/material.css";
+import "../src/styles/global.css";
 
 /** @type { import('@storybook/react-vite').Preview } */
 const preview = {
   globalTypes: {
-    mdTheme: {
+    uiTheme: {
       name: "Theme",
-      description: "Material theme mode",
-      defaultValue: "system",
+      description: "Expressive Vainilla theme mode",
+      defaultValue: "dark",
       toolbar: {
         icon: "mirror",
         items: [
@@ -16,9 +16,9 @@ const preview = {
         ]
       }
     },
-    mdExpression: {
+    uiExpression: {
       name: "Expression",
-      description: "Material expression level",
+      description: "Expressive Vainilla expression level",
       defaultValue: "medium",
       toolbar: {
         icon: "paintbrush",
@@ -34,22 +34,24 @@ const preview = {
     (Story, context) => {
       if (typeof document !== "undefined") {
         const root = document.documentElement;
-        const theme = context.globals.mdTheme;
-        const expression = context.globals.mdExpression;
-        const isMaterialStory = String(context.title || "").startsWith("Material 3/");
+        const theme = context.globals.uiTheme;
+        const expression = context.globals.uiExpression;
+        const isExpressiveStory = String(context.title || "").startsWith("Expressive Vainilla/");
 
         if (theme === "system") {
-          root.removeAttribute("data-md-theme");
+          root.removeAttribute("data-ui-theme");
+          root.removeAttribute("data-theme-mode");
         } else {
-          root.setAttribute("data-md-theme", theme);
+          root.setAttribute("data-ui-theme", theme);
+          root.setAttribute("data-theme-mode", theme);
         }
 
-        root.setAttribute("data-md-expression", expression);
+        root.setAttribute("data-ui-expression", expression);
 
-        if (isMaterialStory) {
-          root.setAttribute("data-md-font", "google-sans");
+        if (isExpressiveStory) {
+          root.setAttribute("data-ui-font", "google-sans");
         } else {
-          root.removeAttribute("data-md-font");
+          root.removeAttribute("data-ui-font");
         }
       }
 

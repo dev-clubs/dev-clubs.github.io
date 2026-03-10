@@ -1,0 +1,208 @@
+.shape-root {
+  min-height: 100vh;
+  padding: clamp(1rem, 2.6vw, 2.5rem);
+  background: linear-gradient(165deg, #ece8f8 0%, #eff2f6 100%);
+  color: #0f1928;
+  font-family: "Google Sans Text", "Segoe UI", -apple-system, sans-serif;
+}
+
+.shape-root,
+.shape-root * {
+  box-sizing: border-box;
+}
+
+.shape-shell {
+  max-width: 96rem;
+  margin: 0 auto;
+  display: grid;
+  gap: 1rem;
+}
+
+.shape-header,
+.shape-token-panel,
+.shape-card,
+.shape-optical {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid #c8cfdd;
+}
+
+.shape-header {
+  border-radius: var(--shape-rounding-extra-large);
+  padding: clamp(1rem, 1rem + 0.6vw, 1.7rem);
+  display: grid;
+  gap: 0.55rem;
+}
+
+.shape-kicker {
+  margin: 0;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+  font-weight: 700;
+}
+
+.shape-header h1,
+.shape-header p,
+.shape-token-panel h2,
+.shape-optical h2,
+.shape-optical p {
+  margin: 0;
+}
+
+.shape-header p,
+.shape-optical p {
+  color: #4d5a72;
+}
+
+.shape-header code,
+.shape-token-panel code,
+.shape-card code,
+.shape-optical code {
+  font-family: "Roboto Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+  background: #edf2f8;
+  border: 1px solid #c8cfdd;
+  border-radius: var(--shape-rounding-extra-small);
+  padding: 0.1rem 0.35rem;
+}
+
+.shape-token-panel {
+  border-radius: var(--shape-rounding-large);
+  padding: 1rem;
+  overflow: auto;
+}
+
+.shape-token-panel table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 28rem;
+}
+
+.shape-token-panel th,
+.shape-token-panel td {
+  text-align: left;
+  padding: 0.45rem 0.35rem;
+  border-bottom: 1px solid #d8deea;
+}
+
+.shape-token-panel th {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.shape-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: 0.75rem;
+}
+
+.shape-card {
+  border-radius: var(--shape-rounding-medium);
+  padding: 0.85rem;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.shape-card h3 {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.shape-preview {
+  width: 100%;
+  min-height: 5rem;
+  background: linear-gradient(155deg, #dce9ff 0%, #c8d9f4 100%);
+  border: 1px solid #a8b4c6;
+}
+
+.shape-none {
+  border-radius: var(--shape-rounding-none);
+}
+
+.shape-extra-small {
+  border-radius: var(--shape-rounding-extra-small);
+}
+
+.shape-small {
+  border-radius: var(--shape-rounding-small);
+}
+
+.shape-medium {
+  border-radius: var(--shape-rounding-medium);
+}
+
+.shape-large {
+  border-radius: var(--shape-rounding-large);
+}
+
+.shape-large-increased {
+  border-radius: var(--shape-rounding-large-increased);
+}
+
+.shape-extra-large {
+  border-radius: var(--shape-rounding-extra-large);
+}
+
+.shape-extra-large-increased {
+  border-radius: var(--shape-rounding-extra-large-increased);
+}
+
+.shape-extra-extra-large {
+  border-radius: var(--shape-rounding-extra-extra-large);
+}
+
+.shape-full {
+  border-radius: var(--shape-rounding-full);
+}
+
+.shape-extra-small-top {
+  border-radius: var(--shape-rounding-extra-small-top);
+}
+
+.shape-large-top {
+  border-radius: var(--shape-rounding-large-top);
+}
+
+.shape-extra-large-top {
+  border-radius: var(--shape-rounding-extra-large-top);
+}
+
+.shape-large-start {
+  border-radius: var(--shape-rounding-large-start);
+}
+
+.shape-large-end {
+  border-radius: var(--shape-rounding-large-end);
+}
+
+.shape-optical {
+  border-radius: var(--shape-rounding-large);
+  padding: 1rem;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.shape-optical-demo {
+  padding: 0.6rem;
+  border-radius: var(--shape-rounding-large);
+  border: 1px dashed #a8b4c6;
+  background: #edf2f7;
+}
+
+.shape-optical-outer {
+  border-radius: var(--shape-corner-extra-extra-large);
+  padding: 14px;
+  background: linear-gradient(130deg, #a8c2eb, #7f94b5);
+}
+
+.shape-optical-inner {
+  border-radius: 34px;
+  min-height: 5rem;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 0.8rem;
+  background: rgba(255, 255, 255, 0.9);
+  color: #0f1928;
+  font-weight: 600;
+}

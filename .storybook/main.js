@@ -2,6 +2,9 @@
 
 /** @type { import('@storybook/react-vite').StorybookConfig } */
 const config = {
+  staticDirs: [
+    { from: "./public", to: "/" }
+  ],
   "stories": [
     "../src/**/*.mdx",
     "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"
@@ -21,8 +24,17 @@ const config = {
         }
       }
     },
-    "@storybook/addon-onboarding"
+    "@storybook/addon-onboarding",
+    "@storybook/addon-mcp"
   ],
-  "framework": "@storybook/react-vite"
+  "framework": "@storybook/react-vite",
+  viteFinal: (config) => {
+    config.optimizeDeps = config.optimizeDeps ?? {};
+    config.optimizeDeps.exclude = [
+      ...(config.optimizeDeps.exclude ?? []),
+      "playground-elements"
+    ];
+    return config;
+  }
 };
 export default config;

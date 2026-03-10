@@ -53,6 +53,10 @@ const canonical = Astro.url.href;
             rel="stylesheet"
         />
 
+        <!-- Web Components / Tools -->
+        <script type="module" src="https://unpkg.com/playground-elements?module"
+        ></script>
+
         <!-- Global CSS -->
         <style is:global>
             @import "../styles/global.css";
@@ -69,9 +73,7 @@ const canonical = Astro.url.href;
                 ]);
                 const rawMode = localStorage.getItem("theme-mode");
                 const rawAccent = localStorage.getItem("theme-accent");
-                const storedMode = allowedModes.has(rawMode)
-                    ? rawMode
-                    : "system";
+                const storedMode = allowedModes.has(rawMode) ? rawMode : "dark";
                 const storedAccent = allowedAccents.has(rawAccent)
                     ? rawAccent
                     : "blue";
@@ -85,7 +87,10 @@ const canonical = Astro.url.href;
                             : "light"
                         : storedMode;
                 root.dataset.themePreference = storedMode;
-                root.dataset.themeMode = resolvedMode;
+                root.dataset.themeMode =
+                    storedMode === "dark" || resolvedMode === "dark"
+                        ? "dark"
+                        : resolvedMode;
                 root.dataset.themeAccent = storedAccent;
             })();
         </script>
@@ -168,8 +173,8 @@ const canonical = Astro.url.href;
                                 <a href="/empowerment/">Mujeres x Diversidad</a>
                             </li>
                             <li>
-                                <a href="/computer-science/"
-                                    >Computer Science</a>
+                                <a href="/computer-science/">Computer Science</a
+                                >
                             </li>
                             <li><a href="/design-code/">Código y Diseño</a></li>
                         </ul>
@@ -231,42 +236,48 @@ const canonical = Astro.url.href;
             <ul class="mobile-menu__links" role="list">
                 <li>
                     <a href="/#eventos"
-                        ><span class="material-symbols-rounded mobile-menu__item-icon"
+                        ><span
+                            class="material-symbols-rounded mobile-menu__item-icon"
                             >event</span
                         >Eventos</a
                     >
                 </li>
                 <li>
                     <a href="/cloud-ai/"
-                        ><span class="material-symbols-rounded mobile-menu__item-icon"
+                        ><span
+                            class="material-symbols-rounded mobile-menu__item-icon"
                             >cloud</span
                         >AI & Cloud</a
                     >
                 </li>
                 <li>
                     <a href="/empowerment/"
-                        ><span class="material-symbols-rounded mobile-menu__item-icon"
+                        ><span
+                            class="material-symbols-rounded mobile-menu__item-icon"
                             >diversity_3</span
                         >Mujeres x Diversidad</a
                     >
                 </li>
                 <li>
                     <a href="/computer-science/"
-                        ><span class="material-symbols-rounded mobile-menu__item-icon"
+                        ><span
+                            class="material-symbols-rounded mobile-menu__item-icon"
                             >terminal</span
                         >Computer Science</a
                     >
                 </li>
                 <li>
                     <a href="/design-code/"
-                        ><span class="material-symbols-rounded mobile-menu__item-icon"
+                        ><span
+                            class="material-symbols-rounded mobile-menu__item-icon"
                             >design_services</span
                         >Código y Diseño</a
                     >
                 </li>
                 <li>
                     <a href="/contributors/wiki"
-                        ><span class="material-symbols-rounded mobile-menu__item-icon"
+                        ><span
+                            class="material-symbols-rounded mobile-menu__item-icon"
                             >groups</span
                         >Contributors</a
                     >
@@ -341,7 +352,9 @@ const canonical = Astro.url.href;
             <div class="mobile-menu__theme">
                 <h5>Tema</h5>
                 <div class="mobile-menu__theme-modes">
-                    <button type="button" data-theme-mode="system">System</button>
+                    <button type="button" data-theme-mode="system"
+                        >System</button
+                    >
                     <button type="button" data-theme-mode="light">Light</button>
                     <button type="button" data-theme-mode="dark">Dark</button>
                 </div>
@@ -374,8 +387,7 @@ const canonical = Astro.url.href;
             href="https://gdg.community.dev/gdg-queretaro/"
             class="btn-primary mobile-cta-float"
             target="_blank"
-            rel="noopener"
-            >+ Únete</a
+            rel="noopener">+ Únete</a
         >
 
         <!-- ═══ MAIN CONTENT ═══ -->
@@ -413,8 +425,8 @@ const canonical = Astro.url.href;
                             GDG Querétaro
                         </div>
                         <p>
-                            Conecta, aprende y crece junto a talento local.
-                            Un programa oficial de Google for Developers.
+                            Conecta, aprende y crece junto a talento local. Un
+                            programa oficial de Google for Developers.
                         </p>
                     </div>
 
@@ -425,9 +437,7 @@ const canonical = Astro.url.href;
                             <li><a href="/#eventos">Eventos</a></li>
                             <li><a href="/#clubs">Clubes</a></li>
                             <li>
-                                <a href="/contributors/wiki"
-                                    >Contributors</a
-                                >
+                                <a href="/contributors/wiki">Contributors</a>
                             </li>
                         </ul>
                     </nav>
@@ -520,10 +530,12 @@ const canonical = Astro.url.href;
                 "(prefers-color-scheme: dark)",
             );
             const modeButtons = document.querySelectorAll("[data-theme-mode]");
-            const colorButtons = document.querySelectorAll("[data-theme-accent]");
+            const colorButtons = document.querySelectorAll(
+                "[data-theme-accent]",
+            );
 
             const applyTheme = () => {
-                const preference = root.dataset.themePreference || "system";
+                const preference = root.dataset.themePreference || "dark";
                 const resolvedMode =
                     preference === "system"
                         ? mediaPrefersDark.matches
@@ -537,7 +549,7 @@ const canonical = Astro.url.href;
                 modeButtons.forEach((btn) => {
                     const isActive =
                         btn.dataset.themeMode ===
-                        (root.dataset.themePreference || "system");
+                        (root.dataset.themePreference || "dark");
                     btn.classList.toggle("is-active", isActive);
                     btn.setAttribute("aria-pressed", String(isActive));
                 });
@@ -570,7 +582,7 @@ const canonical = Astro.url.href;
             });
 
             mediaPrefersDark.addEventListener("change", () => {
-                if ((root.dataset.themePreference || "system") === "system") {
+                if ((root.dataset.themePreference || "dark") === "system") {
                     applyTheme();
                 }
             });

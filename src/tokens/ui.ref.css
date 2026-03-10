@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css2?family=Google+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Google+Sans+Text:wght@400;500;700&family=Roboto+Mono:wght@400;500;700&display=swap");
+
+:root {
+  --ev-ref-font-primary: "Google Sans", "Google Sans Text", "Product Sans", sans-serif;
+  --ev-ref-font-mono: "Roboto Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --ev-ref-color-white: #ffffff;
+  --ev-ref-color-black: #050507;
+
+  --ev-ref-color-ink-100: #101114;
+  --ev-ref-color-ink-80: #292b31;
+  --ev-ref-color-ink-60: #515564;
+  --ev-ref-color-ink-40: #83889a;
+
+  --ev-ref-color-paper-100: #faf8f3;
+  --ev-ref-color-paper-96: #f4f1ea;
+  --ev-ref-color-paper-90: #e9e5dc;
+  --ev-ref-color-paper-86: #dfd9cd;
+
+  --ev-ref-color-charcoal-100: #111217;
+  --ev-ref-color-charcoal-92: #171920;
+  --ev-ref-color-charcoal-84: #202330;
+  --ev-ref-color-charcoal-74: #2b3043;
+
+  --ev-ref-color-blue-95: #e8f0fe;
+  --ev-ref-color-blue-80: #aecbfa;
+  --ev-ref-color-blue-60: #8ab4f8;
+  --ev-ref-color-blue-40: #4285F4;
+  --ev-ref-color-blue-30: #1a73e8;
+
+  --ev-ref-color-red-95: #fce8e6;
+  --ev-ref-color-red-80: #fad2cf;
+  --ev-ref-color-red-60: #f28b82;
+  --ev-ref-color-red-40: #EA4335;
+  --ev-ref-color-red-30: #d93025;
+
+  --ev-ref-color-green-95: #e6f4ea;
+  --ev-ref-color-green-80: #ceead6;
+  --ev-ref-color-green-60: #81c995;
+  --ev-ref-color-green-40: #34A853;
+  --ev-ref-color-green-30: #1e8e3e;
+
+  --ev-ref-color-yellow-95: #fef7e0;
+  --ev-ref-color-yellow-80: #fde293;
+  --ev-ref-color-yellow-60: #fdd663;
+  --ev-ref-color-yellow-40: #FBBC05;
+  --ev-ref-color-yellow-30: #f29900;
+
+  --ev-ref-color-error: #c53434;
+
+  --ev-ref-space-0: 0;
+  --ev-ref-space-1: 0.25rem;
+  --ev-ref-space-2: 0.5rem;
+  --ev-ref-space-3: 0.75rem;
+  --ev-ref-space-4: 1rem;
+  --ev-ref-space-5: 1.5rem;
+  --ev-ref-space-6: 2rem;
+  --ev-ref-space-7: 3rem;
+  --ev-ref-space-8: 4rem;
+  --ev-ref-space-9: 6rem;
+
+  --ev-ref-radius-none: 0;
+  --ev-ref-radius-sharp: 0.25rem;
+  --ev-ref-radius-sm: 0.375rem;
+  --ev-ref-radius-md: 0.625rem;
+  --ev-ref-radius-card: 1.5rem;
+  --ev-ref-radius-card-lg: 2rem;
+  --ev-ref-radius-panel: 1.75rem;
+  --ev-ref-radius-pill: 999px;
+
+  --ev-ref-shadow-0: none;
+  --ev-ref-shadow-1:
+    0 1px 3px rgba(0, 0, 0, 0.08),
+    0 1px 2px rgba(0, 0, 0, 0.04);
+  --ev-ref-shadow-2:
+    0 4px 16px rgba(0, 0, 0, 0.10);
+  --ev-ref-shadow-3:
+    0 8px 32px rgba(0, 0, 0, 0.14);
+  --ev-ref-shadow-overlap:
+    0 16px 48px rgba(0, 0, 0, 0.18),
+    0 4px 12px rgba(0, 0, 0, 0.08);
+
+  --ev-ref-grid-columns: 12;
+  --ev-ref-grid-gutter: clamp(0.75rem, 0.9vw + 0.55rem, 1.5rem);
+  --ev-ref-grid-inset-start: clamp(1rem, 6vw, 6.5rem);
+  --ev-ref-grid-inset-end: clamp(1rem, 2vw, 2.5rem);
+  --ev-ref-layout-max: 90rem;
+  --ev-ref-reading-measure: 66ch;
+}

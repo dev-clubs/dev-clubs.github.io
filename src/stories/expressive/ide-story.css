@@ -1,0 +1,442 @@
+/* ─── IDE Layout Shell ────────────────────────────────────────────────────────
+   3-panel e-learning layout: Learn | Editor | Preview
+   ──────────────────────────────────────────────────────────────────────────── */
+
+.ide-root {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100vh;
+  background: var(--ui-sys-color-background);
+  color: var(--ui-sys-color-on-surface);
+  overflow: hidden;
+}
+
+/* ─── App Bar ──────────────────────────────────── */
+
+.ide-app-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 1rem;
+  background: var(--ui-sys-color-surface-raised);
+  border-bottom: var(--ui-sys-border-strong);
+  box-shadow: var(--ui-sys-shadow-1);
+  z-index: 10;
+}
+
+.ide-app-bar__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.ide-app-bar__track {
+  color: var(--ui-sys-color-primary);
+}
+
+.ide-app-bar__title {
+  flex: 1;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--ui-sys-color-on-surface-muted);
+}
+
+.ide-app-bar__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+/* ─── Body: 3-column panel grid ────────────────── */
+
+.ide-body {
+  display: grid;
+  grid-template-columns: 22rem 1fr 1fr;
+  overflow: hidden;
+  min-height: 0;
+}
+
+@media (max-width: 1024px) {
+  .ide-body {
+    grid-template-columns: 18rem 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+  .ide-panel--preview {
+    grid-column: 2;
+    grid-row: 2;
+  }
+}
+
+@media (max-width: 720px) {
+  .ide-body {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
+  .ide-panel--preview {
+    grid-column: 1;
+    grid-row: 3;
+  }
+}
+
+/* ─── Generic Panel ─────────────────────────────── */
+
+.ide-panel {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+  border-right: var(--ui-sys-border-strong);
+}
+
+.ide-panel:last-child {
+  border-right: none;
+}
+
+.ide-panel__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.6rem;
+  padding: 0 0.85rem;
+  background: var(--ui-sys-color-surface-raised);
+  border-bottom: var(--ui-sys-border-strong);
+  flex-shrink: 0;
+}
+
+.ide-panel__header--browser {
+  gap: 0.25rem;
+}
+
+.ide-panel__actions {
+  margin-left: auto;
+}
+
+.ide-panel__content {
+  overflow-y: auto;
+  padding: 1.25rem;
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+/* ─── Learn panel ───────────────────────────────── */
+
+.ide-panel--learn {
+  background: color-mix(in srgb, var(--ui-sys-color-surface) 96%, transparent);
+}
+
+.ide-lesson-meta {
+  margin-bottom: 0.25rem;
+}
+
+.ide-lesson-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0;
+  color: var(--ui-sys-color-on-surface);
+}
+
+.ide-lesson-body {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.ide-inline-snippet {
+  font-size: 0.78rem;
+}
+
+.ide-instructions {
+  border-top: var(--ui-sys-border-strong);
+  padding-top: 1rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.ide-instructions__heading {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0;
+  color: var(--ui-sys-color-on-surface-muted);
+}
+
+.ide-instructions__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.ide-instruction {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 0.6rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--ui-sys-color-on-surface-muted);
+}
+
+.ide-instruction--done {
+  color: var(--ui-sys-color-tertiary);
+}
+
+.ide-instruction__check .ui-icon {
+  font-size: 1.1rem;
+}
+
+.ide-instruction--done .ide-instruction__check .ui-icon {
+  --ui-icon-fill: 1;
+  color: var(--ui-sys-color-tertiary);
+}
+
+/* ─── Editor panel ──────────────────────────────── */
+
+.ide-panel--editor {
+  background: var(--ui-sys-color-background);
+}
+
+.ide-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0 0.85rem;
+  height: 100%;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ui-sys-color-on-surface-muted);
+  border-right: var(--ui-sys-border-strong);
+}
+
+.ide-tab--active {
+  color: var(--ui-sys-color-on-surface);
+  border-bottom: 2px solid var(--ui-sys-color-primary);
+  background: color-mix(in srgb, var(--ui-sys-color-primary-soft) 40%, transparent);
+}
+
+.ide-editor {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  overflow: hidden;
+  height: 100%;
+  font-family: var(--ui-type-font-mono);
+  font-size: 0.82rem;
+  line-height: 1.65;
+}
+
+.ide-editor__gutter {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 1rem 0.5rem;
+  color: var(--ui-sys-color-on-surface-muted);
+  background: color-mix(in srgb, var(--ui-sys-color-surface-raised) 40%, transparent);
+  border-right: var(--ui-sys-border-strong);
+  font-size: 0.72rem;
+  gap: 0;
+  line-height: 1.65;
+  opacity: 0.6;
+  user-select: none;
+  overflow: hidden;
+}
+
+.ide-editor__textarea {
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  background: transparent;
+  color: var(--ui-sys-color-on-surface);
+  font-family: var(--ui-type-font-mono);
+  font-size: 0.82rem;
+  line-height: 1.65;
+  border: none;
+  resize: none;
+  outline: none;
+  tab-size: 2;
+  caret-color: var(--ui-sys-color-primary);
+}
+
+.ide-editor__textarea:focus {
+  box-shadow: none;
+}
+
+/* ─── Preview panel ─────────────────────────────── */
+
+.ide-panel--preview {
+  background: #ffffff;
+}
+
+html[data-ui-theme="dark"] .ide-panel--preview {
+  background: var(--ui-sys-color-background-muted);
+}
+
+.ide-address-bar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-height: 1.8rem;
+  padding: 0 0.75rem;
+  border-radius: var(--ev-ref-radius-pill);
+  border: var(--ui-sys-border-strong);
+  background: var(--ui-sys-color-background);
+  color: var(--ui-sys-color-on-surface-muted);
+  font-family: var(--ui-type-font-mono);
+  font-size: 0.74rem;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.ide-preview {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.ide-preview__output {
+  font-size: clamp(1.8rem, 4vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: #0d0d0d;
+  text-align: center;
+  font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+}
+
+html[data-ui-theme="dark"] .ide-preview__output {
+  color: #f5f5f5;
+}
+
+/* ─── Footer Bar ────────────────────────────────── */
+
+.ide-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1rem;
+  background: var(--ui-sys-color-surface-raised);
+  border-top: var(--ui-sys-border-strong);
+  box-shadow: var(--ui-sys-shadow-1);
+  z-index: 10;
+}
+
+.ide-run-btn {
+  min-width: 6rem;
+  gap: 0.3rem;
+}
+
+.ide-footer__actions {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.ide-footer__spacer {
+  flex: 1;
+}
+
+.ide-footer__nav {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.ide-lesson-counter {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ui-sys-color-on-surface-muted);
+  min-width: 2.5rem;
+  text-align: center;
+}
+
+/* ─── playground-elements integration ──────────── */
+
+/* Shared token bridge: map --playground-* → --ui-sys-* */
+:root {
+  --playground-code-font-family:    var(--ui-type-font-mono);
+  --playground-code-font-size:      0.82rem;
+  --playground-code-line-height:    1.65;
+  --playground-code-background:     var(--ui-sys-color-background);
+  --playground-code-default-color:  var(--ui-sys-color-on-surface);
+  --playground-code-comment-color:  var(--ui-sys-color-on-surface-muted);
+  --playground-code-keyword-color:  var(--ui-sys-color-primary);
+  --playground-code-atom-color:     var(--ui-sys-color-secondary);
+  --playground-code-number-color:   var(--ui-sys-color-tertiary);
+  --playground-code-string-color:   var(--ui-sys-color-tertiary);
+  --playground-code-cursor-color:   var(--ui-sys-color-primary);
+  --playground-highlight-color:     color-mix(in srgb, var(--ui-sys-color-primary) 15%, transparent);
+  --playground-border:              none;
+  --playground-bar-height:          0px;           /* hide built-in chrome we don't use */
+  --playground-preview-toolbar-background: var(--ui-sys-color-surface-raised);
+  --playground-preview-toolbar-foreground: var(--ui-sys-color-on-surface);
+}
+
+/* Code editor fills the editor panel */
+playground-code-editor.ide-pg-editor {
+  display: block;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Preview fills the preview panel */
+playground-preview.ide-pg-preview {
+  display: block;
+  min-height: 0;
+  height: 100%;
+}
+
+/* Hide playground's own loading indicator (we have our own) */
+playground-preview.ide-pg-preview::part(iframe) {
+  height: 100%;
+}
+
+/* Markdown editor in DevExperience */
+playground-code-editor.dxp-md-editor {
+  display: block;
+  height: 28rem;
+  overflow: hidden;
+}
+
+/* ─── Lesson Dot Progress ───────────────────────── */
+
+.ide-lesson-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border: var(--ui-sys-border-strong);
+  background: var(--ui-sys-color-surface-raised);
+  color: var(--ui-sys-color-on-surface-muted);
+  flex-shrink: 0;
+}
+
+.ide-lesson-dot--active {
+  border-color: var(--ui-sys-color-primary);
+  color: var(--ui-sys-color-primary);
+  background: var(--ui-sys-color-primary-soft);
+}
+
+.ide-lesson-dot--done {
+  border-color: var(--ui-sys-color-tertiary);
+  background: color-mix(in srgb, var(--ui-sys-color-tertiary-soft) 80%, transparent);
+  color: var(--ui-sys-color-tertiary);
+}
+
+.ide-lesson-dot--done .ui-icon {
+  --ui-icon-fill: 1;
+  font-size: 1rem;
+}

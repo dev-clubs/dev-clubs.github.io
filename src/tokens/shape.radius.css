@@ -1,0 +1,29 @@
+:root {
+  --shape-corner-none: 0px;
+  --shape-corner-extra-small: 4px;
+  --shape-corner-small: 8px;
+  --shape-corner-medium: 12px;
+  --shape-corner-large: 16px;
+  --shape-corner-large-increased: 20px;
+  --shape-corner-extra-large: 28px;
+  --shape-corner-extra-large-increased: 32px;
+  --shape-corner-extra-extra-large: 48px;
+  --shape-corner-full: 9999px;
+
+  --shape-rounding-none: var(--shape-corner-none);
+  --shape-rounding-extra-small: var(--shape-corner-extra-small);
+  --shape-rounding-small: var(--shape-corner-small);
+  --shape-rounding-medium: var(--shape-corner-medium);
+  --shape-rounding-large: var(--shape-corner-large);
+  --shape-rounding-large-increased: var(--shape-corner-large-increased);
+  --shape-rounding-extra-large: var(--shape-corner-extra-large);
+  --shape-rounding-extra-large-increased: var(--shape-corner-extra-large-increased);
+  --shape-rounding-extra-extra-large: var(--shape-corner-extra-extra-large);
+  --shape-rounding-full: var(--shape-corner-full);
+
+  --shape-rounding-extra-small-top: var(--shape-corner-extra-small) var(--shape-corner-extra-small) 0 0;
+  --shape-rounding-large-top: var(--shape-corner-large) var(--shape-corner-large) 0 0;
+  --shape-rounding-extra-large-top: var(--shape-corner-extra-large) var(--shape-corner-extra-large) 0 0;
+  --shape-rounding-large-start: var(--shape-corner-large) 0 0 var(--shape-corner-large);
+  --shape-rounding-large-end: 0 var(--shape-corner-large) var(--shape-corner-large) 0;
+}

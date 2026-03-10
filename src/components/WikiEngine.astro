@@ -1,0 +1,5 @@
+---
+import WikiEngineReact from "./WikiEngine.jsx";
+const { articlePath } = Astro.props;
+---
+<WikiEngineReact client:only="react" articlePath={articlePath} />

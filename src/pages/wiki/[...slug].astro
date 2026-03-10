@@ -1,0 +1,58 @@
+---
+import WikiEngine from "../../components/WikiEngine.astro";
+import fs from "fs";
+import path from "path";
+
+const wikiRoot = path.resolve(process.cwd(), "public/wiki");
+
+export async function getStaticPaths() {
+  const wikiRootLocal = path.resolve(process.cwd(), "public/wiki");
+  function getAllMarkdownFiles(dir: string, base: string[] = []) {
+    let results: any[] = [];
+    if (!fs.existsSync(dir)) return results;
+    const list = fs.readdirSync(dir);
+    list.forEach((file) => {
+      const filePath = path.join(dir, file);
+      const rel = [...base, file];
+      const stat = fs.statSync(filePath);
+      if (stat && stat.isDirectory()) {
+        results = results.concat(getAllMarkdownFiles(filePath, rel));
+      } else if (file.endsWith(".md")) {
+        // Remove .md and README for clean URLs
+        let slugArr = rel;
+        if (file === "README.md") {
+          slugArr = rel.slice(0, -1);
+        } else {
+          slugArr = [...rel];
+          slugArr[slugArr.length - 1] = file.replace(/\.md$/, "");
+        }
+        const slug = slugArr.length > 0 ? slugArr.join("/") : undefined;
+        results.push({ params: { slug } });
+      }
+    });
+    return results;
+  }
+  return getAllMarkdownFiles(wikiRootLocal);
+}
+
+const slugParam = Astro.params.slug;
+const slugArr = slugParam ? slugParam.split("/") : [];
+let filePath = path.join(wikiRoot, ...slugArr);
+if (fs.existsSync(filePath) && fs.statSync(filePath).isDirectory()) {
+  filePath = path.join(filePath, "README.md");
+} else if (!filePath.endsWith(".md")) {
+  filePath += ".md";
+}
+const relPath = filePath.replace(path.resolve(process.cwd(), "public"), "");
+import GDGLayout from "../../layouts/GDGLayout.astro";
+---
+
+<GDGLayout title="Wiki — GDG Querétaro">
+  <section class="club-content container">
+    <div class="club-content__inner">
+      <div class="club-content__main">
+        <WikiEngine articlePath={relPath} />
+      </div>
+    </div>
+  </section>
+</GDGLayout>
