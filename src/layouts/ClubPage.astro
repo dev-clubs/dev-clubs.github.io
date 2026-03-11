@@ -18,7 +18,7 @@ export interface Props {
         sectionId?: string;
         sectionLabel?: string;
     }>;
-    articleHeadings?: Array<{ text: string; id: string }>;
+    articleHeadings?: Array<{ text: string; id: string; depth: number }>;
     currentContentHref?: string;
     previousContent?: { label: string; href: string } | null;
     nextContent?: { label: string; href: string } | null;
@@ -34,6 +34,7 @@ export interface Props {
         venue: string;
         href: string;
     }>;
+    ogImage?: string;
 }
 
 const {
@@ -57,16 +58,15 @@ const {
     clubHref = "/",
     clubLabel = clubName,
     clubEvents = [],
+    ogImage,
 } = Astro.props;
 
-const resolvedViewMode =
-    courseLinks.length > 0
-        ? "club-catalog"
-        : viewMode;
+const resolvedViewMode = courseLinks.length > 0 ? "club-catalog" : viewMode;
 const hasSingleCourse = courseLinks.length === 1;
 const showCourseHero = resolvedViewMode === "article" && Boolean(courseTitle);
 const courseRootHref = courseContents[0]?.href ?? "";
-const isCourseIndexPage = Boolean(courseRootHref) && currentContentHref === courseRootHref;
+const isCourseIndexPage =
+    Boolean(courseRootHref) && currentContentHref === courseRootHref;
 let lastSectionId = "";
 
 function formatTopicTag(href: string) {
@@ -93,12 +93,24 @@ const icons: Record<string, string> = {
 };
 
 const iconPath = icons[icon] || icons.cloud;
+
+// SEO mappings
+const pageDescription = courseDescription || clubDescription;
+const pageOgType = resolvedViewMode === "article" ? "article" : "website";
 ---
 
-<GDGLayout title={title}>
+<GDGLayout 
+    title={title} 
+    description={pageDescription} 
+    ogType={pageOgType} 
+    ogImage={ogImage}
+>
     {
         showCourseHero ? (
-            <section class="course-hero container" style={`--brand-primary: ${badgeColor}`}>
+            <section
+                class="course-hero container"
+                style={`--brand-primary: ${badgeColor}`}
+            >
                 <div class="course-hero__inner">
                     <a class="course-hero__back" href={clubHref}>
                         ← Volver a {clubLabel}
@@ -110,11 +122,16 @@ const iconPath = icons[icon] || icons.cloud;
                         {badgeLabel}
                     </span>
                     <h1 class="course-hero__title">{courseTitle}</h1>
-                    {courseDescription && <p class="course-hero__desc">{courseDescription}</p>}
+                    {courseDescription && (
+                        <p class="course-hero__desc">{courseDescription}</p>
+                    )}
                 </div>
             </section>
         ) : (
-            <section class="club-hero container" style={`--brand-primary: ${badgeColor}`}>
+            <section
+                class="club-hero container"
+                style={`--brand-primary: ${badgeColor}`}
+            >
                 <div class="club-hero__inner">
                     <div class="club-hero__text" data-animate>
                         <span
@@ -147,7 +164,7 @@ const iconPath = icons[icon] || icons.cloud;
                                 fill="currentColor"
                                 aria-hidden="true"
                             >
-                                <path d={iconPath}></path>
+                                <path d={iconPath} />
                             </svg>
                         </div>
                     </div>
@@ -160,170 +177,217 @@ const iconPath = icons[icon] || icons.cloud;
         resolvedViewMode === "club-catalog" ? (
             <section class="club-content container">
                 <div class="club-content__catalog">
-                    <div class:list={["course-catalog", { "course-catalog--single": hasSingleCourse }]}>
+                    <div
+                        class:list={[
+                            "course-catalog",
+                            { "course-catalog--single": hasSingleCourse },
+                        ]}
+                    >
                         {courseLinks.map((link) => (
-                            <a class:list={["course-card", { "course-card--hero": hasSingleCourse }]} href={link.href}>
+                            <a
+                                class:list={[
+                                    "course-card",
+                                    { "course-card--hero": hasSingleCourse },
+                                ]}
+                                href={link.href}
+                            >
                                 <div class="course-card__content">
-                                    <span class="course-card__eyebrow">{formatTopicTag(link.href)}</span>
+                                    <span class="course-card__eyebrow">
+                                        {formatTopicTag(link.href)}
+                                    </span>
                                     <h3>{link.label}</h3>
-                                    {link.description && <p>{link.description}</p>}
+                                    {link.description && (
+                                        <p>{link.description}</p>
+                                    )}
                                 </div>
-                                <span class="course-card__cta">Abrir curso</span>
+                                <span class="course-card__cta">Continuar</span>
                             </a>
                         ))}
                     </div>
                 </div>
 
-                {
-                    clubEvents.length > 0 && (
-                        <div class="club-events-inline">
-                            <h4>Eventos</h4>
-                            <div class="club-events-inline__list">
-                                {clubEvents.map((event) => (
-                                    <a class="club-event-inline" href={event.href}>
-                                        <div class="club-event__date">
-                                            <span class="club-event__month">{event.parts.month}</span>
-                                            {event.parts.day && <span class="club-event__day">{event.parts.day}</span>}
+                {clubEvents.length > 0 && (
+                    <div class="club-events-inline">
+                        <h4>Eventos</h4>
+                        <div class="club-events-inline__list">
+                            {clubEvents.map((event) => (
+                                <a class="club-event-inline" href={event.href}>
+                                    <div class="club-event__date">
+                                        <span class="club-event__month">
+                                            {event.parts.month}
+                                        </span>
+                                        {event.parts.day && (
+                                            <span class="club-event__day">
+                                                {event.parts.day}
+                                            </span>
+                                        )}
+                                    </div>
+                                    <div class="club-event__body">
+                                        <div class="club-event__title">
+                                            {event.title}
                                         </div>
-                                        <div class="club-event__body">
-                                            <div class="club-event__title">{event.title}</div>
-                                            <div class="club-event__meta">
-                                                {event.parts.time}
-                                                {event.venue ? ` · ${event.venue}` : ""}
-                                            </div>
+                                        <div class="club-event__meta">
+                                            {event.parts.time}
+                                            {event.venue
+                                                ? ` · ${event.venue}`
+                                                : ""}
                                         </div>
-                                    </a>
-                                ))}
-                            </div>
+                                    </div>
+                                </a>
+                            ))}
                         </div>
-                    )
-                }
+                    </div>
+                )}
             </section>
         ) : (
             <section class="club-content container">
                 <div class="club-content__inner club-content__inner--article">
-                    <aside class="club-content__sidebar club-content__sidebar--left">
-                        {
-                            courseContents.length > 0 && (
-                                <div class="club-content__sidebar-card">
-                                    <h4>Artículos</h4>
-                                    <ul>
-                                        {courseContents.map((link) => {
-                                            const showSection =
-                                                link.sectionId &&
-                                                link.sectionId !== lastSectionId &&
-                                                link.depth > 0;
-                                            if (link.sectionId) {
-                                                lastSectionId = link.sectionId;
-                                            }
+                    {courseContents.length > 0 && (
+                        <aside class="club-content__sidebar club-content__sidebar--left">
+                            <div class="club-content__sidebar-card">
+                                <h4>Artículos</h4>
+                                <ul>
+                                    {courseContents.map((link) => {
+                                        const showSection =
+                                            link.sectionId &&
+                                            link.sectionId !== lastSectionId &&
+                                            link.depth > 0;
+                                        if (link.sectionId) {
+                                            lastSectionId = link.sectionId;
+                                        }
 
-                                            return (
-                                                <>
-                                                    {showSection && (
-                                                        <li class="course-nav-section">
-                                                            {link.sectionLabel ?? link.sectionId}
-                                                        </li>
-                                                    )}
-                                                    <li
-                                                        class="course-nav-item"
-                                                        style={`--nav-depth: ${link.depth}`}
-                                                    >
-                                                        <a
-                                                            href={link.href}
-                                                            class:list={[
-                                                                "club-content__nav-link",
-                                                                {
-                                                                    "club-content__nav-link--active":
-                                                                        link.href === currentContentHref,
-                                                                },
-                                                            ]}
-                                                        >
-                                                            {getCourseNavLabel(link)}
-                                                        </a>
+                                        return (
+                                            <>
+                                                {showSection && (
+                                                    <li class="course-nav-section">
+                                                        {link.sectionLabel ??
+                                                            link.sectionId}
                                                     </li>
-                                                </>
-                                            );
-                                        })}
-                                    </ul>
-                                </div>
-                            )
-                        }
-                    </aside>
+                                                )}
+                                                <li
+                                                    class="course-nav-item"
+                                                    style={`--nav-depth: ${link.depth}`}
+                                                >
+                                                    <a
+                                                        href={link.href}
+                                                        class:list={[
+                                                            "club-content__nav-link",
+                                                            {
+                                                                "club-content__nav-link--active":
+                                                                    link.href ===
+                                                                    currentContentHref,
+                                                            },
+                                                        ]}
+                                                    >
+                                                        {getCourseNavLabel(
+                                                            link,
+                                                        )}
+                                                    </a>
+                                                </li>
+                                            </>
+                                        );
+                                    })}
+                                </ul>
+                            </div>
+                        </aside>
+                    )}
 
                     <div class="club-content__main club-content__main--article">
                         <div
                             class="wiki-engine"
                             style={`--brand-primary: ${badgeColor}; --wiki-theme: ${badgeColor};`}
                         >
-                            <div class="prose" set:html={articleHtml}></div>
+                            <div class="prose" set:html={articleHtml} />
                         </div>
 
-                        {
-                            (previousContent || nextContent) && (
-                                <nav class="article-pagination" aria-label="Navegacion del curso">
-                                    {previousContent ? (
-                                        <a class="article-pagination__card" href={previousContent.href}>
-                                            <span class="article-pagination__label">Anterior</span>
-                                            <strong>{previousContent.label}</strong>
-                                        </a>
-                                    ) : (
-                                        <div class="article-pagination__card article-pagination__card--empty"></div>
-                                    )}
+                        {(previousContent || nextContent) && (
+                            <nav
+                                class="article-pagination"
+                                aria-label="Navegacion del curso"
+                            >
+                                {previousContent ? (
+                                    <a
+                                        class="article-pagination__card"
+                                        href={previousContent.href}
+                                    >
+                                        <span class="article-pagination__label">
+                                            Anterior
+                                        </span>
+                                        <strong>{previousContent.label}</strong>
+                                    </a>
+                                ) : (
+                                    <div class="article-pagination__card article-pagination__card--empty" />
+                                )}
 
-                                    {nextContent ? (
-                                        <a class="article-pagination__card article-pagination__card--next" href={nextContent.href}>
-                                            <span class="article-pagination__label">Siguiente</span>
-                                            <strong>{nextContent.label}</strong>
-                                        </a>
-                                    ) : (
-                                        <div class="article-pagination__card article-pagination__card--empty"></div>
-                                    )}
-                                </nav>
-                            )
-                        }
+                                {nextContent ? (
+                                    <a
+                                        class="article-pagination__card article-pagination__card--next"
+                                        href={nextContent.href}
+                                    >
+                                        <span class="article-pagination__label">
+                                            Siguiente
+                                        </span>
+                                        <strong>{nextContent.label}</strong>
+                                    </a>
+                                ) : (
+                                    <div class="article-pagination__card article-pagination__card--empty" />
+                                )}
+                            </nav>
+                        )}
                     </div>
 
-                    <aside class="club-content__sidebar club-content__sidebar--right">
-                        {
-                            clubEvents.length > 0 && (
+                    {(clubEvents.length > 0 || sidebarLinks.length > 0 || articleHeadings.length > 0) && (
+                        <aside class="club-content__sidebar club-content__sidebar--right">
+                            {clubEvents.length > 0 && (
                                 <div class="club-content__sidebar-card">
                                     <h4>Eventos</h4>
                                     <ul class="club-events-list">
                                         {clubEvents.map((event) => (
                                             <li class="club-event">
                                                 <div class="club-event__date">
-                                                    <span class="club-event__month">{event.parts.month}</span>
+                                                    <span class="club-event__month">
+                                                        {event.parts.month}
+                                                    </span>
                                                     {event.parts.day && (
-                                                        <span class="club-event__day">{event.parts.day}</span>
+                                                        <span class="club-event__day">
+                                                            {event.parts.day}
+                                                        </span>
                                                     )}
                                                 </div>
                                                 <div class="club-event__body">
-                                                    <a href={event.href} class="club-event__title">{event.title}</a>
+                                                    <a
+                                                        href={event.href}
+                                                        class="club-event__title"
+                                                    >
+                                                        {event.title}
+                                                    </a>
                                                     <div class="club-event__meta">
                                                         {event.parts.time}
-                                                        {event.venue ? ` · ${event.venue}` : ""}
+                                                        {event.venue
+                                                            ? ` · ${event.venue}`
+                                                            : ""}
                                                     </div>
                                                 </div>
                                             </li>
                                         ))}
                                     </ul>
                                 </div>
-                            )
-                        }
+                            )}
 
-                        <div class="club-content__sidebar-card">
-                            <h4>Recursos</h4>
-                            <ul>
-                                {sidebarLinks.map((link) => (
-                                    <li>
-                                        <a href={link.href}>{link.label}</a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
+                            {sidebarLinks.length > 0 && (
+                                <div class="club-content__sidebar-card">
+                                    <h4>Recursos</h4>
+                                    <ul>
+                                        {sidebarLinks.map((link) => (
+                                            <li>
+                                                <a href={link.href}>{link.label}</a>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
 
-                        {
-                            articleHeadings.length > 0 && (
+                            {articleHeadings.length > 0 && (
                                 <div class="club-content__sidebar-card">
                                     <h4>Contenido</h4>
                                     <ul>
@@ -345,9 +409,9 @@ const iconPath = icons[icon] || icons.cloud;
                                         ))}
                                     </ul>
                                 </div>
-                            )
-                        }
-                    </aside>
+                            )}
+                        </aside>
+                    )}
                 </div>
             </section>
         )

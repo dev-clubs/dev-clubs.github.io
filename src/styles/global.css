@@ -1553,31 +1553,70 @@ button {
 }
 
 .club-content__inner--article {
-  grid-template-columns: minmax(16rem, 2.6fr) minmax(0, 6fr) minmax(18rem, 3fr);
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "main";
+}
+
+.club-content__inner--article:has(.club-content__sidebar--left):has(.club-content__sidebar--right) {
+  grid-template-columns: clamp(14rem, 20vw, 17rem) minmax(0, 1fr) clamp(16rem, 22vw, 19rem);
+  grid-template-areas: "left main right";
+}
+
+.club-content__inner--article:has(.club-content__sidebar--left):not(:has(.club-content__sidebar--right)) {
+  grid-template-columns: clamp(14rem, 20vw, 17rem) minmax(0, 1fr);
+  grid-template-areas: "left main";
+}
+
+.club-content__inner--article:not(:has(.club-content__sidebar--left)):has(.club-content__sidebar--right) {
+  grid-template-columns: minmax(0, 1fr) clamp(16rem, 22vw, 19rem);
+  grid-template-areas: "main right";
+}
+
+@media (max-width: 76rem) {
+  /* Move right sidebar below the article to prevent floating overlaps on medium screens */
+  .club-content__inner--article:has(.club-content__sidebar--left):has(.club-content__sidebar--right) {
+    grid-template-columns: clamp(14rem, 24vw, 17rem) minmax(0, 1fr);
+    grid-template-areas: 
+      "left main"
+      "right right";
+  }
+  
+  .club-content__inner--article:not(:has(.club-content__sidebar--left)):has(.club-content__sidebar--right) {
+    grid-template-columns: minmax(0, 1fr) clamp(16rem, 22vw, 19rem);
+    grid-template-areas: 
+      "main right"
+      "main right";
+  }
+  
+  .club-content__inner--article:has(.club-content__sidebar--left):has(.club-content__sidebar--right) .club-content__sidebar--right {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    margin-top: var(--sp-2xl);
+    position: static;
+  }
 }
 
 .club-content__main {
-  grid-column: 1 / 10;
+  grid-column: 1 / -1;
   min-width: 0;
 }
 
 .club-content__main--article {
-  grid-column: auto;
+  grid-area: main;
 }
 
 .club-content__sidebar {
-  grid-column: 10 / -1;
   position: sticky;
   top: 6rem;
   align-self: start;
 }
 
-.club-content__sidebar--left,
-.club-content__sidebar--right {
-  grid-column: auto;
+.club-content__sidebar--left {
+  grid-area: left;
 }
 
 .club-content__sidebar--right {
+  grid-area: right;
   display: grid;
   gap: var(--sp-md);
 }

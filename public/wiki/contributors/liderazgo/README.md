@@ -7,8 +7,8 @@ course_name: Programa de liderazgo (PLC)
 Presentamos herramientas de oratoria explicadas en términos técnicos familiares para desarrolladores de software. El documento da fundamentos teóricos a actividades de preparación propuestas: las `audiciones`, las `evaluaciones` y el `curriculum`.
 
 ## Las audiciones
-Simulacros públicos con auditorio amable para medir oportunidades de mejora. Modulos:
-* **Presentación de proyectos**: Práctica de conferencias preparadas para implemantar técnicas de comunicación.
+Simulacros públicos frente a un auditorio amable para medir oportunidades de mejora. Actividades:
+* **Presentación de proyectos**: Práctica de conferencias preparadas para practicar técnicas de comunicación.
 * **Foro en vivo**: Pases al escenario sin preparación previa del discurso para habilidades de agilidad.
 
 ## Evaluaciones y retroalimentación

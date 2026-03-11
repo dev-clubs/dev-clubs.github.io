@@ -31,6 +31,7 @@ const wikiSearchIndex = getWikiSearchIndex();
         <title>{title}</title>
         <meta name="description" content={description} />
         <link rel="canonical" href={canonical} />
+        <link rel="sitemap" href="/sitemap-index.xml" />
 
         <!-- Open Graph -->
         <meta property="og:title" content={title} />
@@ -38,6 +39,7 @@ const wikiSearchIndex = getWikiSearchIndex();
         <meta property="og:type" content={ogType} />
         <meta property="og:url" content={canonical} />
         <meta property="og:image" content={ogImage} />
+        <meta property="og:site_name" content="GDG Querétaro" />
         <meta property="og:locale" content="es_MX" />
 
         <!-- Twitter Card -->
@@ -198,7 +200,9 @@ const wikiSearchIndex = getWikiSearchIndex();
                             aria-controls="navbar-search-panel"
                         >
                             <span class="material-symbols-rounded">search</span>
-                            <span class="navbar__search-toggle-label">Buscar</span>
+                            <span class="navbar__search-toggle-label"
+                                >Buscar</span
+                            >
                             <span
                                 class="navbar__search-shortcut"
                                 id="navbar-search-shortcut"
@@ -217,10 +221,15 @@ const wikiSearchIndex = getWikiSearchIndex();
                                 id="navbar-search-form"
                                 role="search"
                             >
-                                <label class="sr-only" for="navbar-search-input">
+                                <label
+                                    class="sr-only"
+                                    for="navbar-search-input"
+                                >
                                     Buscar contenido
                                 </label>
-                                <span class="material-symbols-rounded navbar__search-icon">
+                                <span
+                                    class="material-symbols-rounded navbar__search-icon"
+                                >
                                     search
                                 </span>
                                 <input
@@ -250,7 +259,8 @@ const wikiSearchIndex = getWikiSearchIndex();
                                     class="navbar__search-results-list"
                                     id="navbar-search-results-list"
                                     role="listbox"
-                                ></ul>
+                                >
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -459,7 +469,7 @@ const wikiSearchIndex = getWikiSearchIndex();
             href="https://gdg.community.dev/gdg-queretaro/"
             class="btn-primary mobile-cta-float"
             target="_blank"
-            rel="noopener">+ Únete</a
+            rel="noopener">Regístrate</a
         >
 
         <!-- ═══ MAIN CONTENT ═══ -->
@@ -590,21 +600,26 @@ const wikiSearchIndex = getWikiSearchIndex();
             id="wiki-search-data"
             type="application/json"
             set:html={JSON.stringify(wikiSearchIndex)}
-        ></script>
+        />
         <script is:inline>
             // Mobile menu toggle
             const hamburger = document.getElementById("hamburger-btn");
             const mobileMenu = document.getElementById("mobile-menu");
             const overlay = document.getElementById("mobile-overlay");
             const wikiSearchIndex = JSON.parse(
-                document.getElementById("wiki-search-data")?.textContent || "[]",
+                document.getElementById("wiki-search-data")?.textContent ||
+                    "[]",
             );
             const searchShell = document.getElementById("navbar-search-shell");
-            const searchToggle = document.getElementById("navbar-search-toggle");
+            const searchToggle = document.getElementById(
+                "navbar-search-toggle",
+            );
             const searchPanel = document.getElementById("navbar-search-panel");
             const searchForm = document.getElementById("navbar-search-form");
             const searchInput = document.getElementById("navbar-search-input");
-            const searchResults = document.getElementById("navbar-search-results");
+            const searchResults = document.getElementById(
+                "navbar-search-results",
+            );
             const searchResultsList = document.getElementById(
                 "navbar-search-results-list",
             );
@@ -622,8 +637,7 @@ const wikiSearchIndex = getWikiSearchIndex();
                 document.body.style.overflow = isOpen ? "hidden" : "";
             }
 
-            const normalizeSearchValue = (value) =>
-                value.trim().toLowerCase();
+            const normalizeSearchValue = (value) => value.trim().toLowerCase();
 
             const getSearchMatches = (query) => {
                 const normalizedQuery = query.trim().toLowerCase();
@@ -794,7 +808,9 @@ const wikiSearchIndex = getWikiSearchIndex();
                 const isEditable =
                     target instanceof HTMLElement &&
                     (target.isContentEditable ||
-                        ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName));
+                        ["INPUT", "TEXTAREA", "SELECT"].includes(
+                            target.tagName,
+                        ));
 
                 if (
                     (event.metaKey || event.ctrlKey) &&
@@ -811,14 +827,21 @@ const wikiSearchIndex = getWikiSearchIndex();
                     return;
                 }
 
-                if (event.key === "Escape" && searchShell?.classList.contains("is-open")) {
+                if (
+                    event.key === "Escape" &&
+                    searchShell?.classList.contains("is-open")
+                ) {
                     closeSearch();
                 }
             });
 
             if (searchShortcut instanceof HTMLElement) {
-                const usesCommandKey = /Mac|iPhone|iPad/.test(navigator.platform);
-                searchShortcut.textContent = usesCommandKey ? "Cmd K" : "Ctrl K";
+                const usesCommandKey = /Mac|iPhone|iPad/.test(
+                    navigator.platform,
+                );
+                searchShortcut.textContent = usesCommandKey
+                    ? "Cmd K"
+                    : "Ctrl K";
             }
 
             // Theme controls
