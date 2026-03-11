@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { marked } from 'marked';
+import { renderMarkdown } from '../lib/markdown';
 
 // tiny frontmatter parser that avoids Node-specific APIs like Buffer
 function parseFrontmatter(text) {
@@ -47,7 +47,7 @@ export default function WikiEngine({ articlePath = '/wiki/article.md', themeColo
                 const markdown = await response.text();
                 // parse frontmatter using lightweight helper
                 const { data, content: rawContent } = parseFrontmatter(markdown);
-                const html = marked.parse(rawContent);
+                const html = renderMarkdown(rawContent);
                 setContent(html);
                 setMeta(data || {});
 

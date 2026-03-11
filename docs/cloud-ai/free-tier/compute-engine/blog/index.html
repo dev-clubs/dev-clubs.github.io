@@ -73,58 +73,58 @@ Instagram
 <p>Crea un directorio para tu proyecto y dentro de él crea dos archivos: <code>variables.tf</code> y <code>main.tf</code>.</p>
 <h3 id="1-variablestf">1. <code>variables.tf</code></h3>
 <p>Este archivo almacenará el ID de tu proyecto.</p>
-<pre class="shiki dark-plus" style="background-color:#1E1E1E;color:#D4D4D4" tabindex="0"><code><span class="line"><span style="color:#4EC9B0">variable</span><span style="color:#4FC1FF"> "project_id"</span><span style="color:#D4D4D4"> {</span></span>
-<span class="line"><span style="color:#9CDCFE">  description </span><span style="color:#D4D4D4">=</span><span style="color:#CE9178"> "El ID del proyecto de GCP"</span></span>
-<span class="line"><span style="color:#9CDCFE">  type        </span><span style="color:#D4D4D4">=</span><span style="color:#569CD6"> string</span></span>
+<pre class="shiki dark-plus" style="background-color:#1E1E1E;color:#D4D4D4" tabindex="0"><code><span class="line"><span style="color:#D4D4D4">variable &#x26;quot;project_id&#x26;quot; {</span></span>
+<span class="line"><span style="color:#9CDCFE">  description</span><span style="color:#D4D4D4"> = &#x26;quot;El ID del proyecto de GCP&#x26;quot;</span></span>
+<span class="line"><span style="color:#9CDCFE">  type</span><span style="color:#D4D4D4">        = </span><span style="color:#569CD6">string</span></span>
 <span class="line"><span style="color:#6A9955">  # Reemplaza con tu ID de proyecto real o pásalo al ejecutar terraform</span></span>
-<span class="line"><span style="color:#9CDCFE">  default     </span><span style="color:#D4D4D4">=</span><span style="color:#CE9178"> "mi-proyecto-gcp-12345"</span><span style="color:#D4D4D4"> </span></span>
+<span class="line"><span style="color:#9CDCFE">  default</span><span style="color:#D4D4D4">     = &#x26;quot;mi-proyecto-gcp-</span><span style="color:#B5CEA8">12345</span><span style="color:#D4D4D4">&#x26;quot; </span></span>
 <span class="line"><span style="color:#D4D4D4">}</span></span></code></pre><h3 id="2-maintf">2. <code>main.tf</code></h3>
 <p>Este es el archivo principal. Creará la red de GCP, las reglas de firewall y aprovisionará la máquina virtual <code>e2-micro</code>. También incluye un script de inicio de GCP (Startup Script) que prepara el servidor automáticamente.</p>
-<pre class="shiki dark-plus" style="background-color:#1E1E1E;color:#D4D4D4" tabindex="0"><code><span class="line"><span style="color:#4EC9B0">provider</span><span style="color:#4FC1FF"> "google"</span><span style="color:#D4D4D4"> {</span></span>
-<span class="line"><span style="color:#9CDCFE">  project </span><span style="color:#D4D4D4">=</span><span style="color:#D4D4D4"> var.</span><span style="color:#9CDCFE">project_id</span></span>
-<span class="line"><span style="color:#9CDCFE">  region  </span><span style="color:#D4D4D4">=</span><span style="color:#CE9178"> "us-central1"</span><span style="color:#6A9955"> # Región válida para Free Tier</span></span>
-<span class="line"><span style="color:#9CDCFE">  zone    </span><span style="color:#D4D4D4">=</span><span style="color:#CE9178"> "us-central1-a"</span></span>
+<pre class="shiki dark-plus" style="background-color:#1E1E1E;color:#D4D4D4" tabindex="0"><code><span class="line"><span style="color:#D4D4D4">provider &#x26;quot;google&#x26;quot; {</span></span>
+<span class="line"><span style="color:#9CDCFE">  project</span><span style="color:#D4D4D4"> = var.project_id</span></span>
+<span class="line"><span style="color:#9CDCFE">  region</span><span style="color:#D4D4D4">  = &#x26;quot;us-central1&#x26;quot; </span><span style="color:#6A9955"># Región válida para Free Tier</span></span>
+<span class="line"><span style="color:#9CDCFE">  zone</span><span style="color:#D4D4D4">    = &#x26;quot;us-central1-a&#x26;quot;</span></span>
 <span class="line"><span style="color:#D4D4D4">}</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#6A9955"># 1. Regla de Firewall de GCP para permitir tráfico</span></span>
-<span class="line"><span style="color:#4EC9B0">resource</span><span style="color:#4FC1FF"> "google_compute_firewall"</span><span style="color:#4FC1FF"> "cms_firewall"</span><span style="color:#D4D4D4"> {</span></span>
-<span class="line"><span style="color:#9CDCFE">  name    </span><span style="color:#D4D4D4">=</span><span style="color:#CE9178"> "allow-cms-traffic"</span></span>
-<span class="line"><span style="color:#9CDCFE">  network </span><span style="color:#D4D4D4">=</span><span style="color:#CE9178"> "default"</span></span>
+<span class="line"><span style="color:#D4D4D4">resource &#x26;quot;google_compute_firewall&#x26;quot; &#x26;quot;cms_firewall&#x26;quot; {</span></span>
+<span class="line"><span style="color:#9CDCFE">  name</span><span style="color:#D4D4D4">    = &#x26;quot;allow-cms-traffic&#x26;quot;</span></span>
+<span class="line"><span style="color:#9CDCFE">  network</span><span style="color:#D4D4D4"> = &#x26;quot;default&#x26;quot;</span></span>
 <span class="line"></span>
-<span class="line"><span style="color:#4EC9B0">  allow</span><span style="color:#D4D4D4"> {</span></span>
-<span class="line"><span style="color:#9CDCFE">    protocol </span><span style="color:#D4D4D4">=</span><span style="color:#CE9178"> "tcp"</span></span>
-<span class="line"><span style="color:#9CDCFE">    ports    </span><span style="color:#D4D4D4">=</span><span style="color:#D4D4D4"> [</span><span style="color:#CE9178">"22"</span><span style="color:#D4D4D4">, </span><span style="color:#CE9178">"80"</span><span style="color:#D4D4D4">, </span><span style="color:#CE9178">"443"</span><span style="color:#D4D4D4">, </span><span style="color:#CE9178">"1337"</span><span style="color:#D4D4D4">]</span></span>
+<span class="line"><span style="color:#D4D4D4">  allow {</span></span>
+<span class="line"><span style="color:#9CDCFE">    protocol</span><span style="color:#D4D4D4"> = &#x26;quot;tcp&#x26;quot;</span></span>
+<span class="line"><span style="color:#9CDCFE">    ports</span><span style="color:#D4D4D4">    = [&#x26;quot;</span><span style="color:#B5CEA8">22</span><span style="color:#D4D4D4">&#x26;quot;, &#x26;quot;</span><span style="color:#B5CEA8">80</span><span style="color:#D4D4D4">&#x26;quot;, &#x26;quot;</span><span style="color:#B5CEA8">443</span><span style="color:#D4D4D4">&#x26;quot;, &#x26;quot;</span><span style="color:#B5CEA8">1337</span><span style="color:#D4D4D4">&#x26;quot;]</span></span>
 <span class="line"><span style="color:#D4D4D4">  }</span></span>
 <span class="line"></span>
-<span class="line"><span style="color:#6A9955">  # ATENCIÓN: Para mayor seguridad, reemplaza "0.0.0.0/0" con tu IP pública fija</span></span>
-<span class="line"><span style="color:#9CDCFE">  source_ranges </span><span style="color:#D4D4D4">=</span><span style="color:#D4D4D4"> [</span><span style="color:#CE9178">"0.0.0.0/0"</span><span style="color:#D4D4D4">] </span></span>
-<span class="line"><span style="color:#9CDCFE">  target_tags   </span><span style="color:#D4D4D4">=</span><span style="color:#D4D4D4"> [</span><span style="color:#CE9178">"cms-server"</span><span style="color:#D4D4D4">]</span></span>
+<span class="line"><span style="color:#6A9955">  # ATENCIÓN: Para mayor seguridad, reemplaza &#x26;quot;0.0.0.0/0&#x26;quot; con tu IP pública fija</span></span>
+<span class="line"><span style="color:#9CDCFE">  source_ranges</span><span style="color:#D4D4D4"> = [&#x26;quot;</span><span style="color:#B5CEA8">0.0</span><span style="color:#D4D4D4">.</span><span style="color:#B5CEA8">0.0</span><span style="color:#D4D4D4">/</span><span style="color:#B5CEA8">0</span><span style="color:#D4D4D4">&#x26;quot;] </span></span>
+<span class="line"><span style="color:#9CDCFE">  target_tags</span><span style="color:#D4D4D4">   = [&#x26;quot;cms-server&#x26;quot;]</span></span>
 <span class="line"><span style="color:#D4D4D4">}</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#6A9955"># 2. Instancia de Compute Engine (Free Tier)</span></span>
-<span class="line"><span style="color:#4EC9B0">resource</span><span style="color:#4FC1FF"> "google_compute_instance"</span><span style="color:#4FC1FF"> "cms_vm"</span><span style="color:#D4D4D4"> {</span></span>
-<span class="line"><span style="color:#9CDCFE">  name         </span><span style="color:#D4D4D4">=</span><span style="color:#CE9178"> "gcp-cms-production-vm"</span></span>
-<span class="line"><span style="color:#9CDCFE">  machine_type </span><span style="color:#D4D4D4">=</span><span style="color:#CE9178"> "e2-micro"</span><span style="color:#6A9955"> # MÁQUINA GRATUITA DE GCP</span></span>
-<span class="line"><span style="color:#9CDCFE">  zone         </span><span style="color:#D4D4D4">=</span><span style="color:#CE9178"> "us-central1-a"</span></span>
-<span class="line"><span style="color:#9CDCFE">  tags         </span><span style="color:#D4D4D4">=</span><span style="color:#D4D4D4"> [</span><span style="color:#CE9178">"cms-server"</span><span style="color:#D4D4D4">]</span></span>
+<span class="line"><span style="color:#D4D4D4">resource &#x26;quot;google_compute_instance&#x26;quot; &#x26;quot;cms_vm&#x26;quot; {</span></span>
+<span class="line"><span style="color:#9CDCFE">  name</span><span style="color:#D4D4D4">         = &#x26;quot;gcp-cms-production-vm&#x26;quot;</span></span>
+<span class="line"><span style="color:#9CDCFE">  machine_type</span><span style="color:#D4D4D4"> = &#x26;quot;e2-micro&#x26;quot; </span><span style="color:#6A9955"># MÁQUINA GRATUITA DE GCP</span></span>
+<span class="line"><span style="color:#9CDCFE">  zone</span><span style="color:#D4D4D4">         = &#x26;quot;us-central1-a&#x26;quot;</span></span>
+<span class="line"><span style="color:#9CDCFE">  tags</span><span style="color:#D4D4D4">         = [&#x26;quot;cms-server&#x26;quot;]</span></span>
 <span class="line"></span>
-<span class="line"><span style="color:#4EC9B0">  boot_disk</span><span style="color:#D4D4D4"> {</span></span>
-<span class="line"><span style="color:#4EC9B0">    initialize_params</span><span style="color:#D4D4D4"> {</span></span>
-<span class="line"><span style="color:#9CDCFE">      image </span><span style="color:#D4D4D4">=</span><span style="color:#CE9178"> "ubuntu-os-cloud/ubuntu-2204-lts"</span></span>
-<span class="line"><span style="color:#9CDCFE">      size  </span><span style="color:#D4D4D4">=</span><span style="color:#B5CEA8"> 30</span><span style="color:#6A9955"> # Hasta 30 GB standard están incluidos en el Free Tier</span></span>
-<span class="line"><span style="color:#9CDCFE">      type  </span><span style="color:#D4D4D4">=</span><span style="color:#CE9178"> "pd-standard"</span></span>
+<span class="line"><span style="color:#D4D4D4">  boot_disk {</span></span>
+<span class="line"><span style="color:#D4D4D4">    initialize_params {</span></span>
+<span class="line"><span style="color:#9CDCFE">      image</span><span style="color:#D4D4D4"> = &#x26;quot;ubuntu-os-cloud/ubuntu-</span><span style="color:#B5CEA8">2204</span><span style="color:#D4D4D4">-lts&#x26;quot;</span></span>
+<span class="line"><span style="color:#9CDCFE">      size</span><span style="color:#D4D4D4">  = </span><span style="color:#B5CEA8">30</span><span style="color:#6A9955"> # Hasta 30 GB standard están incluidos en el Free Tier</span></span>
+<span class="line"><span style="color:#9CDCFE">      type</span><span style="color:#D4D4D4">  = &#x26;quot;pd-standard&#x26;quot;</span></span>
 <span class="line"><span style="color:#D4D4D4">    }</span></span>
 <span class="line"><span style="color:#D4D4D4">  }</span></span>
 <span class="line"></span>
-<span class="line"><span style="color:#4EC9B0">  network_interface</span><span style="color:#D4D4D4"> {</span></span>
-<span class="line"><span style="color:#9CDCFE">    network </span><span style="color:#D4D4D4">=</span><span style="color:#CE9178"> "default"</span></span>
-<span class="line"><span style="color:#4EC9B0">    access_config</span><span style="color:#D4D4D4"> {</span></span>
+<span class="line"><span style="color:#D4D4D4">  network_interface {</span></span>
+<span class="line"><span style="color:#9CDCFE">    network</span><span style="color:#D4D4D4"> = &#x26;quot;default&#x26;quot;</span></span>
+<span class="line"><span style="color:#D4D4D4">    access_config {</span></span>
 <span class="line"><span style="color:#6A9955">      # Al incluir esto, GCP le asigna una IP pública efímera</span></span>
 <span class="line"><span style="color:#D4D4D4">    }</span></span>
 <span class="line"><span style="color:#D4D4D4">  }</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#6A9955">  # Script de inicio nativo de GCP para preparar el entorno</span></span>
-<span class="line"><span style="color:#9CDCFE">  metadata_startup_script </span><span style="color:#D4D4D4">=</span><span style="color:#D4D4D4"> &#x3C;&#x3C;-</span><span style="color:#C586C0">EOF</span></span>
+<span class="line"><span style="color:#9CDCFE">  metadata_startup_script</span><span style="color:#D4D4D4"> = </span><span style="color:#D4D4D4">&#x3C;&#x3C;-</span><span style="color:#C586C0">EOF</span></span>
 <span class="line"><span style="color:#CE9178">    #!/bin/bash</span></span>
 <span class="line"><span style="color:#CE9178">    # 1. Configurar SWAP de 2GB (CRÍTICO para compilar apps Node.js en e2-micro)</span></span>
 <span class="line"><span style="color:#CE9178">    fallocate -l 2G /swapfile</span></span>
@@ -137,7 +137,7 @@ Instagram
 <span class="line"><span style="color:#CE9178">    apt-get update</span></span>
 <span class="line"><span style="color:#CE9178">    apt-get install -y apt-transport-https ca-certificates curl software-properties-common</span></span>
 <span class="line"><span style="color:#CE9178">    curl -fsSL [https://download.docker.com/linux/ubuntu/gpg](https://download.docker.com/linux/ubuntu/gpg) | apt-key add -</span></span>
-<span class="line"><span style="color:#CE9178">    add-apt-repository "deb [arch=amd64] [https://download.docker.com/linux/ubuntu](https://download.docker.com/linux/ubuntu) $(lsb_release -cs) stable"</span></span>
+<span class="line"><span style="color:#CE9178">    add-apt-repository &#x26;quot;deb [arch=amd64] [https://download.docker.com/linux/ubuntu](https://download.docker.com/linux/ubuntu) $(lsb_release -cs) stable&#x26;quot;</span></span>
 <span class="line"><span style="color:#CE9178">    apt-get update</span></span>
 <span class="line"><span style="color:#CE9178">    apt-get install -y docker-ce docker-compose</span></span>
 <span class="line"><span style="color:#CE9178">    usermod -aG docker ubuntu</span></span>
@@ -145,9 +145,9 @@ Instagram
 <span class="line"><span style="color:#D4D4D4">}</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#6A9955"># 3. Mostrar la IP pública al terminar</span></span>
-<span class="line"><span style="color:#4EC9B0">output</span><span style="color:#4FC1FF"> "cms_public_ip"</span><span style="color:#D4D4D4"> {</span></span>
-<span class="line"><span style="color:#9CDCFE">  value       </span><span style="color:#D4D4D4">=</span><span style="color:#D4D4D4"> google_compute_instance.</span><span style="color:#9CDCFE">cms_vm</span><span style="color:#D4D4D4">.</span><span style="color:#9CDCFE">network_interface</span><span style="color:#D4D4D4">.</span><span style="color:#B5CEA8">0</span><span style="color:#D4D4D4">.</span><span style="color:#9CDCFE">access_config</span><span style="color:#D4D4D4">.</span><span style="color:#B5CEA8">0</span><span style="color:#D4D4D4">.</span><span style="color:#9CDCFE">nat_ip</span></span>
-<span class="line"><span style="color:#9CDCFE">  description </span><span style="color:#D4D4D4">=</span><span style="color:#CE9178"> "La IP pública asignada por GCP a tu servidor CMS"</span></span>
+<span class="line"><span style="color:#D4D4D4">output &#x26;quot;cms_public_ip&#x26;quot; {</span></span>
+<span class="line"><span style="color:#9CDCFE">  value</span><span style="color:#D4D4D4">       = google_compute_instance.cms_vm.network_interface.</span><span style="color:#B5CEA8">0</span><span style="color:#D4D4D4">.access_config.</span><span style="color:#B5CEA8">0</span><span style="color:#D4D4D4">.nat_ip</span></span>
+<span class="line"><span style="color:#9CDCFE">  description</span><span style="color:#D4D4D4"> = &#x26;quot;La IP pública asignada por GCP a tu servidor CMS&#x26;quot;</span></span>
 <span class="line"><span style="color:#D4D4D4">}</span></span></code></pre><h2 id="1-regla-de-firewall-de-gcp-para-permitir-trafico">Paso 3: Desplegar la Infraestructura en GCP</h2>
 <p>En tu terminal, dentro del directorio donde creaste los archivos, ejecuta:</p>
 <pre class="shiki dark-plus" style="background-color:#1E1E1E;color:#D4D4D4" tabindex="0"><code><span class="line"><span style="color:#6A9955"># Inicializar Terraform (descarga el proveedor oficial de Google)</span></span>
@@ -183,7 +183,7 @@ Instagram
 <span class="line"><span style="color:#569CD6">      DATABASE_PASSWORD</span><span style="color:#D4D4D4">: </span><span style="color:#CE9178">CAMBIA_ESTA_PASSWORD_EN_PRODUCCION</span></span>
 <span class="line"><span style="color:#569CD6">      NODE_ENV</span><span style="color:#D4D4D4">: </span><span style="color:#CE9178">production</span></span>
 <span class="line"><span style="color:#569CD6">    ports</span><span style="color:#D4D4D4">:</span></span>
-<span class="line"><span style="color:#D4D4D4">      - </span><span style="color:#CE9178">"1337:1337"</span></span>
+<span class="line"><span style="color:#D4D4D4">      - </span><span style="color:#C586C0">&#x26;</span><span style="color:#4EC9B0">quot;1337:1337&#x26;quot;</span></span>
 <span class="line"><span style="color:#569CD6">    depends_on</span><span style="color:#D4D4D4">:</span></span>
 <span class="line"><span style="color:#D4D4D4">      - </span><span style="color:#CE9178">postgres</span></span>
 <span class="line"><span style="color:#569CD6">    volumes</span><span style="color:#D4D4D4">:</span></span>

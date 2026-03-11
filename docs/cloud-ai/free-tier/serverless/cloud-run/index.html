@@ -92,14 +92,14 @@ Instagram
 <span class="line"><span style="color:#C586C0">        await</span><span style="color:#9CDCFE"> axios</span><span style="color:#D4D4D4">.</span><span style="color:#DCDCAA">post</span><span style="color:#D4D4D4">(</span></span>
 <span class="line"><span style="color:#CE9178">            `https://graph.facebook.com/v17.0/</span><span style="color:#569CD6">${</span><span style="color:#4FC1FF">PHONE_NUMBER_ID</span><span style="color:#569CD6">}</span><span style="color:#CE9178">/messages`</span><span style="color:#D4D4D4">,</span></span>
 <span class="line"><span style="color:#D4D4D4">            {</span></span>
-<span class="line"><span style="color:#9CDCFE">            messaging_product:</span><span style="color:#CE9178"> "whatsapp"</span><span style="color:#D4D4D4">,</span></span>
+<span class="line"><span style="color:#9CDCFE">            messaging_product:</span><span style="color:#D4D4D4"> &#x26;</span><span style="color:#9CDCFE">quot</span><span style="color:#D4D4D4">;</span><span style="color:#9CDCFE">whatsapp</span><span style="color:#D4D4D4">&#x26;</span><span style="color:#9CDCFE">quot</span><span style="color:#D4D4D4">;,</span></span>
 <span class="line"><span style="color:#9CDCFE">            to:</span><span style="color:#9CDCFE"> msg</span><span style="color:#D4D4D4">.</span><span style="color:#9CDCFE">from</span><span style="color:#D4D4D4">,</span></span>
-<span class="line"><span style="color:#9CDCFE">            text:</span><span style="color:#D4D4D4"> { </span><span style="color:#9CDCFE">body:</span><span style="color:#CE9178"> "pong 🏓"</span><span style="color:#D4D4D4"> }</span></span>
+<span class="line"><span style="color:#9CDCFE">            text:</span><span style="color:#D4D4D4"> { </span><span style="color:#9CDCFE">body:</span><span style="color:#D4D4D4"> &#x26;</span><span style="color:#9CDCFE">quot</span><span style="color:#D4D4D4">;</span><span style="color:#9CDCFE">pong</span><span style="color:#D4D4D4"> 🏓&#x26;</span><span style="color:#9CDCFE">quot</span><span style="color:#D4D4D4">; }</span></span>
 <span class="line"><span style="color:#D4D4D4">            },</span></span>
 <span class="line"><span style="color:#D4D4D4">            { </span><span style="color:#9CDCFE">headers:</span><span style="color:#D4D4D4"> { </span><span style="color:#9CDCFE">Authorization:</span><span style="color:#CE9178"> `Bearer </span><span style="color:#569CD6">${</span><span style="color:#4FC1FF">WHATSAPP_TOKEN</span><span style="color:#569CD6">}</span><span style="color:#CE9178">`</span><span style="color:#D4D4D4"> } }</span></span>
 <span class="line"><span style="color:#D4D4D4">        );</span></span>
 <span class="line"><span style="color:#D4D4D4">        } </span><span style="color:#C586C0">catch</span><span style="color:#D4D4D4"> (</span><span style="color:#9CDCFE">error</span><span style="color:#D4D4D4">) {</span></span>
-<span class="line"><span style="color:#9CDCFE">        console</span><span style="color:#D4D4D4">.</span><span style="color:#DCDCAA">error</span><span style="color:#D4D4D4">(</span><span style="color:#CE9178">"Error de Meta:"</span><span style="color:#D4D4D4">, </span><span style="color:#9CDCFE">error</span><span style="color:#D4D4D4">.</span><span style="color:#9CDCFE">message</span><span style="color:#D4D4D4">);</span></span>
+<span class="line"><span style="color:#9CDCFE">        console</span><span style="color:#D4D4D4">.</span><span style="color:#DCDCAA">error</span><span style="color:#D4D4D4">(&#x26;</span><span style="color:#9CDCFE">quot</span><span style="color:#D4D4D4">;</span><span style="color:#9CDCFE">Error</span><span style="color:#9CDCFE"> de</span><span style="color:#9CDCFE"> Meta</span><span style="color:#D4D4D4">:&#x26;</span><span style="color:#9CDCFE">quot</span><span style="color:#D4D4D4">;, </span><span style="color:#9CDCFE">error</span><span style="color:#D4D4D4">.</span><span style="color:#9CDCFE">message</span><span style="color:#D4D4D4">);</span></span>
 <span class="line"><span style="color:#D4D4D4">        }</span></span>
 <span class="line"><span style="color:#D4D4D4">    }</span></span>
 <span class="line"><span style="color:#D4D4D4">    }</span></span>
@@ -114,7 +114,7 @@ Instagram
 <span class="line"><span>COPY package*.json ./</span></span>
 <span class="line"><span>RUN npm install --omit=dev</span></span>
 <span class="line"><span>COPY . .</span></span>
-<span class="line"><span>CMD ["node", "index.js"]</span></span></code></pre><h2 id="paso-4-despliegue-en-gcp-free-tier-blindado">Paso 4: Despliegue en GCP (Free Tier Blindado)</h2>
+<span class="line"><span>CMD [&#x26;quot;node&#x26;quot;, &#x26;quot;index.js&#x26;quot;]</span></span></code></pre><h2 id="paso-4-despliegue-en-gcp-free-tier-blindado">Paso 4: Despliegue en GCP (Free Tier Blindado)</h2>
 <p>Con el Google Cloud CLI instalado y autenticado, ejecuta este comando (reemplaza las variables con tus datos reales):</p>
 <pre class="shiki dark-plus" style="background-color:#1E1E1E;color:#D4D4D4" tabindex="0"><code><span class="line"><span>gcloud run deploy wa-ping-pong \</span></span>
 <span class="line"><span>  --source . \</span></span>
@@ -122,7 +122,7 @@ Instagram
 <span class="line"><span>  --allow-unauthenticated \</span></span>
 <span class="line"><span>  --max-instances 1 \</span></span>
 <span class="line"><span>  --memory 256Mi \</span></span>
-<span class="line"><span>  --set-env-vars="VERIFY_TOKEN=tu_token,WHATSAPP_TOKEN=tu_token_meta,PHONE_NUMBER_ID=tu_phone_id"</span></span></code></pre><p>La terminal te devolverá una Service URL al terminar.</p>
+<span class="line"><span>  --set-env-vars=&#x26;quot;VERIFY_TOKEN=tu_token,WHATSAPP_TOKEN=tu_token_meta,PHONE_NUMBER_ID=tu_phone_id&#x26;quot;</span></span></code></pre><p>La terminal te devolverá una Service URL al terminar.</p>
 <h2 id="paso-5-conectar-todo-en-meta">Paso 5: Conectar todo en Meta</h2>
 <ol>
 <li>Ve a Meta for Developers &gt; WhatsApp &gt; Configuration.</li>

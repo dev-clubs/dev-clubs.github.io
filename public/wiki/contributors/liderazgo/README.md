@@ -8,31 +8,30 @@ Presentamos herramientas de oratoria explicadas en términos técnicos familiare
 
 ## Las audiciones
 Simulacros públicos frente a un auditorio amable para medir oportunidades de mejora. Actividades:
-* **Presentación de proyectos**: Práctica de conferencias preparadas para practicar técnicas de comunicación.
-* **Foro en vivo**: Pases al escenario sin preparación previa del discurso para habilidades de agilidad.
+* **Presentación de proyectos** <br/>
+  Práctica de conferencias preparadas para practicar técnicas de comunicación.
+* **Foro en vivo** <br/>
+  Pases al escenario sin preparación previa del discurso para habilidades de agilidad.
 
 ## Evaluaciones y retroalimentación
 Recomendaciones de desempeño para los oradores y organizadores de las conferencias.
 
-**Roles de apoyo y evaluación**
+### Roles de apoyo y evaluación 
+<p>🤵 <strong>Host facilitador / Presentador</strong><br />
+Maestro de ceremonias de la sesión.</p>
 
-**Host facilitador / Presentador**
-Maestro de ceremonias de la sesión.
+🎲 **Conductor** (del foro en vivo)<br />
+Selecciona aprendices al azar para que practiquen expresar sus ideas en público.
 
-**Entrevistador (del foro en vivo)**
-Selecciona aprendices al azar.
+<p>⏳ <strong>Cronometrador</strong><br />
+Indica cuando retirar el uso de la palabra en los minutos asignados en el itinerario.</p>
 
-**Cronometrador**
-Indica cuando retira el uso de la palabra en los minutos asignados en el itinerario.
+<p>🤓 <strong>Depurador de lenguaje</strong><br />Registra usos informales del lenguaje.</p>
+<p>🔔 <strong>Alarma de glitches</strong><br />Bipea y registra cuando un orador comete tropiezos o repite mucho alguna palabra.</p>
 
-**Contador de bugs y diccionario**
-Registra usos informales del lenguaje y vicios de expresión.
+<p>📈 <strong>Evaluador QA de sesión</strong><br />Mide los objetivos de profesionalismo durante toda la sesión.</p>
 
-**Evaluador QA de sesión**
-Medición de objetivos de profesionalismo durante toda la sesión.
-
-**Evaluadores de proyecto**
-Registra el progreso en habilidades.
+<p>✅ <strong>Evaluadores de proyecto</strong><br />Registra el progreso en habilidades.</p>
 
 ## Curriculum formativo
 * **Fase I**: CORE

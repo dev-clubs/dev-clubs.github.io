@@ -41,7 +41,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "contributors/README.md",
+                "file": "contributors/liderazgo/README.md",
                 "mode": "source",
                 "source": false
               },
@@ -214,6 +214,7 @@
   },
   "active": "740c838a27cd9208",
   "lastOpenFiles": [
+    "contributors/README.md",
     "empowerment/README.md",
     "contributors/liderazgo/Técnicas/No lo hagas.md",
     "contributors/liderazgo/Open-mic Meetups/Roles de apoyo/Evaluador de proyecto.md",
@@ -224,7 +225,6 @@
     "contributors/liderazgo/Open-mic Meetups/Roles de apoyo/Depurador de lenguaje.md",
     "contributors/liderazgo/Open-mic Meetups/Roles de apoyo",
     "contributors/liderazgo/tips (draft).md",
-    "contributors/README.md",
     "empowerment.md"
   ]
 }

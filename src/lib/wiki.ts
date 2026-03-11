@@ -3,8 +3,9 @@ export type MarkdownModule = {
     frontmatter?: Record<string, any>;
 };
 
-import { marked } from "marked";
 import { codeToHtml } from "shiki";
+import { escapeHtml, renderMarkdown } from "./markdown";
+import { marked } from "marked";
 
 export type WikiHeading = {
     depth: number;
@@ -58,13 +59,6 @@ function stripFrontmatter(markdown: string) {
     }
 
     return markdown.slice(endIdx + 4).trim();
-}
-
-function escapeHtml(value: string) {
-    return value
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
 }
 
 function slugifyHeading(value: string) {
@@ -148,7 +142,7 @@ export async function renderMarkdownWithHeadingIds(markdown: string) {
         return `@@CODEBLOCK_${lang}__${escapeHtml(code)}@@`;
     };
 
-    const placeholderHtml = marked.parse(cleanMarkdown, { renderer }) as string;
+    const placeholderHtml = renderMarkdown(cleanMarkdown, { renderer });
     const codeBlocks = Array.from(
         placeholderHtml.matchAll(/@@CODEBLOCK_([^_]+)__([\s\S]*?)@@/g),
     );
