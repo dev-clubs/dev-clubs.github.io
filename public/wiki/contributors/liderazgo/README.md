@@ -1,3 +1,6 @@
+---
+course_name: Programa de liderazgo
+---
 
 # Protocolo de Salida: Un programa para lanzar líderes técnicos al mundo real
 

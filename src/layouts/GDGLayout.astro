@@ -1,9 +1,12 @@
 ---
+import { getWikiSearchIndex } from "../lib/wiki";
+
 export interface Props {
     title: string;
     description?: string;
     ogImage?: string;
     ogType?: string;
+    noPageRail?: boolean;
 }
 
 const {
@@ -11,9 +14,11 @@ const {
     description = "GDG Querétaro — Comunidad de desarrolladores de Google en Querétaro. Eventos, talleres, networking y crecimiento profesional.",
     ogImage = "/og-default.png",
     ogType = "website",
+    noPageRail = false,
 } = Astro.props;
 
 const canonical = Astro.url.href;
+const wikiSearchIndex = getWikiSearchIndex();
 ---
 
 <html lang="es">
@@ -184,7 +189,73 @@ const canonical = Astro.url.href;
 
                 <!-- Desktop socials + CTA -->
                 <div class="navbar__socials">
+                    <div class="navbar__search-shell" id="navbar-search-shell">
+                        <button
+                            class="navbar__search-toggle"
+                            id="navbar-search-toggle"
+                            type="button"
+                            aria-expanded="false"
+                            aria-controls="navbar-search-panel"
+                        >
+                            <span class="material-symbols-rounded">search</span>
+                            <span class="navbar__search-toggle-label">Buscar</span>
+                            <span
+                                class="navbar__search-shortcut"
+                                id="navbar-search-shortcut"
+                            >
+                                /
+                            </span>
+                        </button>
+
+                        <div
+                            class="navbar__search-panel"
+                            id="navbar-search-panel"
+                            hidden
+                        >
+                            <form
+                                class="navbar__search"
+                                id="navbar-search-form"
+                                role="search"
+                            >
+                                <label class="sr-only" for="navbar-search-input">
+                                    Buscar contenido
+                                </label>
+                                <span class="material-symbols-rounded navbar__search-icon">
+                                    search
+                                </span>
+                                <input
+                                    class="navbar__search-input"
+                                    id="navbar-search-input"
+                                    type="search"
+                                    name="q"
+                                    placeholder="Buscar cursos y artículos"
+                                    autocomplete="off"
+                                    spellcheck="false"
+                                />
+                                <button
+                                    class="navbar__search-button"
+                                    type="submit"
+                                    aria-label="Abrir primer resultado"
+                                >
+                                    Ir
+                                </button>
+                            </form>
+
+                            <div
+                                class="navbar__search-results"
+                                id="navbar-search-results"
+                                hidden
+                            >
+                                <ul
+                                    class="navbar__search-results-list"
+                                    id="navbar-search-results-list"
+                                    role="listbox"
+                                ></ul>
+                            </div>
+                        </div>
+                    </div>
                     <a
+                        class="navbar__social-link"
                         href="https://github.com/dev-clubs"
                         target="_blank"
                         rel="noopener"
@@ -200,6 +271,7 @@ const canonical = Astro.url.href;
                         >
                     </a>
                     <a
+                        class="navbar__social-link"
                         href="https://www.linkedin.com/company/dev-queretaro"
                         target="_blank"
                         rel="noopener"
@@ -216,7 +288,7 @@ const canonical = Astro.url.href;
                     </a>
                     <a
                         href="https://gdg.community.dev/gdg-queretaro/"
-                        class="btn-primary"
+                        class="navbar__social-link btn-primary"
                         id="cta-unete"
                         target="_blank"
                         rel="noopener">Regístrate</a
@@ -391,7 +463,12 @@ const canonical = Astro.url.href;
         >
 
         <!-- ═══ MAIN CONTENT ═══ -->
-        <main id="main-content">
+        <main
+            id="main-content"
+            class:list={{
+                "page-rail": !noPageRail,
+            }}
+        >
             <slot />
         </main>
 
@@ -509,11 +586,32 @@ const canonical = Astro.url.href;
         </footer>
 
         <!-- ═══ SCRIPTS ═══ -->
+        <script
+            id="wiki-search-data"
+            type="application/json"
+            set:html={JSON.stringify(wikiSearchIndex)}
+        ></script>
         <script is:inline>
             // Mobile menu toggle
             const hamburger = document.getElementById("hamburger-btn");
             const mobileMenu = document.getElementById("mobile-menu");
             const overlay = document.getElementById("mobile-overlay");
+            const wikiSearchIndex = JSON.parse(
+                document.getElementById("wiki-search-data")?.textContent || "[]",
+            );
+            const searchShell = document.getElementById("navbar-search-shell");
+            const searchToggle = document.getElementById("navbar-search-toggle");
+            const searchPanel = document.getElementById("navbar-search-panel");
+            const searchForm = document.getElementById("navbar-search-form");
+            const searchInput = document.getElementById("navbar-search-input");
+            const searchResults = document.getElementById("navbar-search-results");
+            const searchResultsList = document.getElementById(
+                "navbar-search-results-list",
+            );
+            const searchShortcut = document.getElementById(
+                "navbar-search-shortcut",
+            );
+            let activeSearchResults = [];
 
             function toggleMenu() {
                 const isOpen = mobileMenu.classList.toggle("open");
@@ -522,6 +620,205 @@ const canonical = Astro.url.href;
                 hamburger.setAttribute("aria-expanded", isOpen);
                 document.body.classList.toggle("menu-open", isOpen);
                 document.body.style.overflow = isOpen ? "hidden" : "";
+            }
+
+            const normalizeSearchValue = (value) =>
+                value.trim().toLowerCase();
+
+            const getSearchMatches = (query) => {
+                const normalizedQuery = query.trim().toLowerCase();
+                if (!normalizedQuery) {
+                    return wikiSearchIndex.slice(0, 8);
+                }
+
+                const scoredEntries = wikiSearchIndex
+                    .map((entry) => {
+                        const label = entry.label.toLowerCase();
+                        const href = entry.href.toLowerCase();
+                        let score = 0;
+
+                        if (
+                            label === normalizedQuery ||
+                            href === normalizedQuery
+                        ) {
+                            score = 400;
+                        } else if (label.startsWith(normalizedQuery)) {
+                            score = 300;
+                        } else if (href.startsWith(normalizedQuery)) {
+                            score = 260;
+                        } else if (label.includes(normalizedQuery)) {
+                            score = 220;
+                        } else if (href.includes(normalizedQuery)) {
+                            score = 180;
+                        }
+
+                        return { entry, score };
+                    })
+                    .filter((entry) => entry.score > 0)
+                    .sort((left, right) => right.score - left.score)
+                    .slice(0, 8)
+                    .map(({ entry }) => entry);
+
+                return scoredEntries;
+            };
+
+            const openSearch = () => {
+                if (!(searchPanel instanceof HTMLElement)) return;
+                searchPanel.hidden = false;
+                searchShell?.classList.add("is-open");
+                searchToggle?.setAttribute("aria-expanded", "true");
+                renderSearchResults(
+                    searchInput instanceof HTMLInputElement
+                        ? searchInput.value
+                        : "",
+                );
+                if (searchInput instanceof HTMLInputElement) {
+                    searchInput.focus();
+                    searchInput.select();
+                }
+            };
+
+            const closeSearch = () => {
+                if (!(searchPanel instanceof HTMLElement)) return;
+                searchPanel.hidden = true;
+                searchResults?.setAttribute("hidden", "");
+                searchShell?.classList.remove("is-open");
+                searchToggle?.setAttribute("aria-expanded", "false");
+            };
+
+            const renderSearchResults = (query) => {
+                if (!(searchResultsList instanceof HTMLElement)) return;
+
+                activeSearchResults = getSearchMatches(query);
+                searchResultsList.innerHTML = "";
+
+                if (activeSearchResults.length === 0) {
+                    if (searchResults instanceof HTMLElement) {
+                        searchResults.hidden = false;
+                    }
+                    const emptyItem = document.createElement("li");
+                    emptyItem.className = "navbar__search-empty";
+                    emptyItem.textContent = "No se encontró contenido.";
+                    searchResultsList.appendChild(emptyItem);
+                    return;
+                }
+
+                activeSearchResults.forEach((entry) => {
+                    const item = document.createElement("li");
+                    item.className = "navbar__search-result-item";
+
+                    const link = document.createElement("a");
+                    link.className = "navbar__search-result-link";
+                    link.href = entry.href;
+                    link.innerHTML = `
+                        <span class="navbar__search-result-title">${entry.label}</span>
+                        <span class="navbar__search-result-href">${entry.href}</span>
+                    `;
+
+                    item.appendChild(link);
+                    searchResultsList.appendChild(item);
+                });
+
+                if (searchResults instanceof HTMLElement) {
+                    searchResults.hidden = false;
+                }
+            };
+
+            const openFirstSearchResult = () => {
+                const firstResult = activeSearchResults[0];
+                if (firstResult) {
+                    window.location.href = firstResult.href;
+                    return true;
+                }
+                return false;
+            };
+
+            searchForm?.addEventListener("submit", (event) => {
+                event.preventDefault();
+                if (openFirstSearchResult()) {
+                    return;
+                }
+
+                if (searchInput instanceof HTMLInputElement) {
+                    searchInput.setCustomValidity("No se encontró contenido.");
+                    searchInput.reportValidity();
+                    window.setTimeout(
+                        () => searchInput.setCustomValidity(""),
+                        1200,
+                    );
+                }
+            });
+
+            searchToggle?.addEventListener("click", () => {
+                if (searchShell?.classList.contains("is-open")) {
+                    closeSearch();
+                    return;
+                }
+                openSearch();
+            });
+
+            searchInput?.addEventListener("input", (event) => {
+                if (!(event.currentTarget instanceof HTMLInputElement)) return;
+                renderSearchResults(event.currentTarget.value);
+            });
+
+            searchInput?.addEventListener("focus", () => {
+                openSearch();
+            });
+
+            searchInput?.addEventListener("keydown", (event) => {
+                if (event.key === "Escape") {
+                    closeSearch();
+                    searchToggle?.focus();
+                    return;
+                }
+
+                if (event.key === "Enter" && activeSearchResults.length > 0) {
+                    event.preventDefault();
+                    openFirstSearchResult();
+                }
+            });
+
+            document.addEventListener("click", (event) => {
+                if (
+                    searchShell instanceof HTMLElement &&
+                    event.target instanceof Node &&
+                    !searchShell.contains(event.target)
+                ) {
+                    closeSearch();
+                }
+            });
+
+            document.addEventListener("keydown", (event) => {
+                const target = event.target;
+                const isEditable =
+                    target instanceof HTMLElement &&
+                    (target.isContentEditable ||
+                        ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName));
+
+                if (
+                    (event.metaKey || event.ctrlKey) &&
+                    event.key.toLowerCase() === "k"
+                ) {
+                    event.preventDefault();
+                    openSearch();
+                    return;
+                }
+
+                if (event.key === "/" && !isEditable) {
+                    event.preventDefault();
+                    openSearch();
+                    return;
+                }
+
+                if (event.key === "Escape" && searchShell?.classList.contains("is-open")) {
+                    closeSearch();
+                }
+            });
+
+            if (searchShortcut instanceof HTMLElement) {
+                const usesCommandKey = /Mac|iPhone|iPad/.test(navigator.platform);
+                searchShortcut.textContent = usesCommandKey ? "Cmd K" : "Ctrl K";
             }
 
             // Theme controls

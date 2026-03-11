@@ -12,6 +12,7 @@ export type EventItem = {
     bannerLabel?: string;
     bannerImage?: string;
     ctaLabel?: string;
+    dateTbd?: boolean;
 };
 
 export type EventCardParts = {
@@ -36,30 +37,17 @@ const FALLBACK_EVENTS: EventItem[] = [
         ctaLabel: "Registrate",
     },
     {
-        id: "gemini-meetup-buildwithai-2026-03-27",
-        title: "Gemini Meetup #BuildWithAI",
+        id: "dsa-training-2026-04",
+        title: "DSA Training",
         summary:
-            "Sesion practica sobre agentes, prototipos y demos con Gemini y herramientas de productividad.",
-        start: "2026-03-27T18:00:00-06:00",
-        end: "2026-03-27T20:30:00-06:00",
-        venue: "Centro Queretaro de la Imagen",
+            "Sesión del club de Computer Science para practicar estructuras de datos y algoritmos. Fecha exacta por confirmar en abril.",
+        start: "2026-04-01T00:00:00-06:00",
+        venue: "Por definir",
         href: "https://gdg.community.dev/gdg-queretaro/",
-        club: "cloud-ai",
-        bannerLabel: "Featured Meetup",
+        club: "computer-science",
+        bannerLabel: "Sesion del club",
         ctaLabel: "Aparta tu lugar",
-    },
-    {
-        id: "frontend-systems-lab-2026-04-09",
-        title: "Frontend Systems Lab",
-        summary:
-            "Workshop sobre diseno de componentes, tokens y handoff entre producto y frontend.",
-        start: "2026-04-09T19:00:00-06:00",
-        end: "2026-04-09T21:00:00-06:00",
-        venue: "Hub de Innovacion Queretaro",
-        href: "https://gdg.community.dev/gdg-queretaro/",
-        club: "design-code",
-        bannerLabel: "Workshop",
-        ctaLabel: "Ver agenda",
+        dateTbd: true,
     },
 ];
 
@@ -84,12 +72,13 @@ function normalizeGeneratedEvent(event: Partial<EventItem> & { id?: string; titl
         summary: event.summary ?? "",
         start: event.start,
         end: event.end,
-        venue: event.venue ?? "Venue TBA",
+        venue: event.venue ?? "Lugar por definir",
         href: event.href ?? "https://gdg.community.dev/gdg-queretaro/",
         club: event.club ?? "GDG Queretaro",
-        bannerLabel: event.bannerLabel ?? normalizeClub(event.club ?? "Community"),
+        bannerLabel: event.bannerLabel ?? "Evento destacado",
         bannerImage: event.bannerImage,
         ctaLabel: event.ctaLabel ?? "Ver detalles",
+        dateTbd: event.dateTbd ?? false,
         ...override,
     } satisfies EventItem;
 }
@@ -103,24 +92,34 @@ export const EVENTS: EventItem[] =
 
 export function getEventCardParts(event: EventItem): EventCardParts {
     const startDate = new Date(event.start);
+    const hasValidDate = !isNaN(startDate.getTime());
+    const showDay = hasValidDate && !event.dateTbd;
 
     return {
-        weekday: new Intl.DateTimeFormat("es-MX", {
-            weekday: "short",
-            timeZone: "America/Mexico_City",
-        }).format(startDate),
-        day: new Intl.DateTimeFormat("es-MX", {
-            day: "2-digit",
-            timeZone: "America/Mexico_City",
-        }).format(startDate),
-        month: new Intl.DateTimeFormat("es-MX", {
-            month: "short",
-            timeZone: "America/Mexico_City",
-        }).format(startDate),
-        time: new Intl.DateTimeFormat("es-MX", {
-            hour: "numeric",
-            minute: "2-digit",
-            timeZone: "America/Mexico_City",
-        }).format(startDate),
+        weekday: showDay
+            ? new Intl.DateTimeFormat("es-MX", {
+                  weekday: "short",
+                  timeZone: "America/Mexico_City",
+              }).format(startDate)
+            : "",
+        day: showDay
+            ? new Intl.DateTimeFormat("es-MX", {
+                  day: "2-digit",
+                  timeZone: "America/Mexico_City",
+              }).format(startDate)
+            : "",
+        month: hasValidDate
+            ? new Intl.DateTimeFormat("es-MX", {
+                  month: "short",
+                  timeZone: "America/Mexico_City",
+              }).format(startDate)
+            : "",
+        time: showDay
+            ? new Intl.DateTimeFormat("es-MX", {
+                  hour: "numeric",
+                  minute: "2-digit",
+                  timeZone: "America/Mexico_City",
+              }).format(startDate)
+            : "Horario por definir",
     };
 }

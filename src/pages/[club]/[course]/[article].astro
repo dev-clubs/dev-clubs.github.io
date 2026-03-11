@@ -1,0 +1,45 @@
+---
+import ClubPage from "../../../layouts/ClubPage.astro";
+import { getWikiPages } from "../../../lib/wiki";
+import { getClubPageState } from "../../../lib/wiki-routes";
+
+export function getStaticPaths() {
+    return getWikiPages()
+        .filter((page) => !page.isIndex && page.slug.length === 3)
+        .map((page) => ({
+            params: {
+                club: page.slug[0],
+                course: page.slug[1],
+                article: page.slug[2],
+            },
+        }));
+}
+
+const slugParts = [Astro.params.club, Astro.params.course, Astro.params.article].filter(
+    Boolean,
+) as string[];
+const state = await getClubPageState(slugParts);
+---
+
+<ClubPage
+    title={state.pageTitle}
+    clubName={state.frontmatter.clubName ?? state.clubConfig.clubName}
+    clubDescription={state.frontmatter.description ?? state.clubConfig.clubDescription}
+    badgeLabel={state.frontmatter.badgeLabel ?? state.clubConfig.badgeLabel}
+    badgeColor={state.frontmatter.themeColor ?? state.frontmatter.color ?? state.clubConfig.badgeColor}
+    articleHtml={state.articleHtml}
+    icon={state.frontmatter.icon ?? state.clubConfig.icon}
+    sidebarLinks={state.clubConfig.sidebarLinks}
+    articleHeadings={state.articleHeadings}
+    courseLinks={state.courseLinks}
+    courseContents={state.courseContents}
+    currentContentHref={state.currentContentHref}
+    previousContent={state.previousContent}
+    nextContent={state.nextContent}
+    viewMode={state.viewMode}
+    courseTitle={state.courseTitle}
+    courseDescription={state.courseDescription}
+    clubHref={state.clubHref}
+    clubLabel={state.clubLabel}
+    clubEvents={state.clubEvents}
+/>
