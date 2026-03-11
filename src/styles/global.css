@@ -1190,10 +1190,7 @@ button {
 }
 
 .contributor-card__avatars {
-  display: flex;
-  gap: 0;
-  justify-content: center;
-  margin-top: auto;
+  display: none;
 }
 
 .mobile-cta-float {
