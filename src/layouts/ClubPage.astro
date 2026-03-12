@@ -1,0 +1,419 @@
+---
+import GDGLayout from "../layouts/GDGLayout.astro";
+
+export interface Props {
+    title: string;
+    clubName: string;
+    clubDescription: string;
+    badgeLabel: string;
+    badgeColor: string; // Google brand color
+    articleHtml?: string;
+    icon?: string; // 'cloud' | 'diversity' | 'terminal' | 'code'
+    sidebarLinks?: Array<{ label: string; href: string }>;
+    courseLinks?: Array<{ label: string; href: string; description?: string }>;
+    courseContents?: Array<{
+        label: string;
+        href: string;
+        depth: number;
+        sectionId?: string;
+        sectionLabel?: string;
+    }>;
+    articleHeadings?: Array<{ text: string; id: string; depth: number }>;
+    currentContentHref?: string;
+    previousContent?: { label: string; href: string } | null;
+    nextContent?: { label: string; href: string } | null;
+    viewMode?: "club-catalog" | "article";
+    courseTitle?: string;
+    courseDescription?: string;
+    clubHref?: string;
+    clubLabel?: string;
+    clubEvents?: Array<{
+        id: string;
+        title: string;
+        parts: { day: string; month: string; weekday: string; time: string };
+        venue: string;
+        href: string;
+    }>;
+    ogImage?: string;
+}
+
+const {
+    title,
+    clubName,
+    clubDescription,
+    badgeLabel,
+    badgeColor,
+    articleHtml = "",
+    icon = "cloud",
+    sidebarLinks = [],
+    courseLinks = [],
+    courseContents = [],
+    articleHeadings = [],
+    currentContentHref = "",
+    previousContent = null,
+    nextContent = null,
+    viewMode = "article",
+    courseTitle = "",
+    courseDescription = "",
+    clubHref = "/",
+    clubLabel = clubName,
+    clubEvents = [],
+    ogImage,
+} = Astro.props;
+
+const resolvedViewMode = courseLinks.length > 0 ? "club-catalog" : viewMode;
+const hasSingleCourse = courseLinks.length === 1;
+const showCourseHero = resolvedViewMode === "article" && Boolean(courseTitle);
+const courseRootHref = courseContents[0]?.href ?? "";
+const isCourseIndexPage =
+    Boolean(courseRootHref) && currentContentHref === courseRootHref;
+let lastSectionId = "";
+
+function formatTopicTag(href: string) {
+    const segment = href.split("/").filter(Boolean).at(-1) ?? "tema";
+    return segment.replace(/[-_]/g, " ").toUpperCase();
+}
+
+function getCourseNavLabel(link: { label: string; href: string }) {
+    if (isCourseIndexPage && link.href === courseRootHref) {
+        return "Esta colección";
+    }
+
+    return link.label;
+}
+
+// Map icon name to SVG path
+const icons: Record<string, string> = {
+    cloud: "M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4s1.79-4 4-4h.71C7.37 7.69 9.48 6 12 6a5.5 5.5 0 015.35 4.16l.34 1.34H19c1.65 0 3 1.35 3 3s-1.35 3-3 3z",
+    diversity:
+        "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z",
+    terminal:
+        "M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8h16v10zm-2-1h-6v-2h6v2zM7.5 17l-1.41-1.41L8.67 13l-2.59-2.59L7.5 9l4 4-4 4z",
+    code: "M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z",
+};
+
+const iconPath = icons[icon] || icons.cloud;
+
+// SEO mappings
+const pageDescription = courseDescription || clubDescription;
+const pageOgType = resolvedViewMode === "article" ? "article" : "website";
+---
+
+<GDGLayout 
+    title={title} 
+    description={pageDescription} 
+    ogType={pageOgType} 
+    ogImage={ogImage}
+>
+    {
+        showCourseHero ? (
+            <section
+                class="course-hero container"
+                style={`--brand-primary: ${badgeColor}`}
+            >
+                <div class="course-hero__inner">
+                    <a class="course-hero__back" href={clubHref}>
+                        ← Volver a {clubLabel}
+                    </a>
+                    <span
+                        class="club-hero__badge"
+                        style={`background: ${badgeColor}20; color: ${badgeColor};`}
+                    >
+                        {badgeLabel}
+                    </span>
+                    <h1 class="course-hero__title">{courseTitle}</h1>
+                    {courseDescription && (
+                        <p class="course-hero__desc">{courseDescription}</p>
+                    )}
+                </div>
+            </section>
+        ) : (
+            <section
+                class="club-hero container"
+                style={`--brand-primary: ${badgeColor}`}
+            >
+                <div class="club-hero__inner">
+                    <div class="club-hero__text" data-animate>
+                        <span
+                            class="club-hero__badge"
+                            style={`background: ${badgeColor}20; color: ${badgeColor};`}
+                        >
+                            {badgeLabel}
+                        </span>
+                        <h1 class="club-hero__title">{clubName}</h1>
+                        <p class="club-hero__desc">{clubDescription}</p>
+                        <div>
+                            <a
+                                href="https://gdg.community.dev/gdg-queretaro/"
+                                class="btn-primary"
+                                style="width: fit-content; padding: 0.65rem 1.75rem;"
+                                target="_blank"
+                                rel="noreferrer noopener"
+                            >
+                                Únete →
+                            </a>
+                        </div>
+                    </div>
+                    <div class="club-hero__visual" data-animate>
+                        <div
+                            class="club-hero__icon-circle"
+                            style={`background: ${badgeColor};`}
+                        >
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                aria-hidden="true"
+                            >
+                                <path d={iconPath} />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        )
+    }
+
+    {
+        resolvedViewMode === "club-catalog" ? (
+            <section class="club-content container">
+                <div class="club-content__catalog">
+                    <div
+                        class:list={[
+                            "course-catalog",
+                            { "course-catalog--single": hasSingleCourse },
+                        ]}
+                    >
+                        {courseLinks.map((link) => (
+                            <a
+                                class:list={[
+                                    "course-card",
+                                    { "course-card--hero": hasSingleCourse },
+                                ]}
+                                href={link.href}
+                            >
+                                <div class="course-card__content">
+                                    <span class="course-card__eyebrow">
+                                        {formatTopicTag(link.href)}
+                                    </span>
+                                    <h3>{link.label}</h3>
+                                    {link.description && (
+                                        <p>{link.description}</p>
+                                    )}
+                                </div>
+                                <span class="course-card__cta">Ver materiales</span>
+                            </a>
+                        ))}
+                    </div>
+                </div>
+
+                {clubEvents.length > 0 && (
+                    <div class="club-events-inline">
+                        <h4>Eventos</h4>
+                        <div class="club-events-inline__list">
+                            {clubEvents.map((event) => (
+                                <a class="club-event-inline" href={event.href}>
+                                    <div class="club-event__date">
+                                        <span class="club-event__month">
+                                            {event.parts.month}
+                                        </span>
+                                        {event.parts.day && (
+                                            <span class="club-event__day">
+                                                {event.parts.day}
+                                            </span>
+                                        )}
+                                    </div>
+                                    <div class="club-event__body">
+                                        <div class="club-event__title">
+                                            {event.title}
+                                        </div>
+                                        <div class="club-event__meta">
+                                            {event.parts.time}
+                                            {event.venue
+                                                ? ` · ${event.venue}`
+                                                : ""}
+                                        </div>
+                                    </div>
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+                )}
+            </section>
+        ) : (
+            <section class="club-content container">
+                <div class="club-content__inner club-content__inner--article">
+                    {courseContents.length > 0 && (
+                        <aside class="club-content__sidebar club-content__sidebar--left">
+                            <div class="club-content__sidebar-card">
+                                <h4>Artículos</h4>
+                                <ul>
+                                    {courseContents.map((link) => {
+                                        const showSection =
+                                            link.sectionId &&
+                                            link.sectionId !== lastSectionId &&
+                                            link.depth > 0;
+                                        if (link.sectionId) {
+                                            lastSectionId = link.sectionId;
+                                        }
+
+                                        return (
+                                            <>
+                                                {showSection && (
+                                                    <li class="course-nav-section">
+                                                        {link.sectionLabel ??
+                                                            link.sectionId}
+                                                    </li>
+                                                )}
+                                                <li
+                                                    class="course-nav-item"
+                                                    style={`--nav-depth: ${link.depth}`}
+                                                >
+                                                    <a
+                                                        href={link.href}
+                                                        class:list={[
+                                                            "club-content__nav-link",
+                                                            {
+                                                                "club-content__nav-link--active":
+                                                                    link.href ===
+                                                                    currentContentHref,
+                                                            },
+                                                        ]}
+                                                    >
+                                                        {getCourseNavLabel(
+                                                            link,
+                                                        )}
+                                                    </a>
+                                                </li>
+                                            </>
+                                        );
+                                    })}
+                                </ul>
+                            </div>
+                        </aside>
+                    )}
+
+                    <div class="club-content__main club-content__main--article">
+                        <div
+                            class="wiki-engine"
+                            style={`--brand-primary: ${badgeColor}; --wiki-theme: ${badgeColor};`}
+                        >
+                            <div class="prose" set:html={articleHtml} />
+                        </div>
+
+                        {(previousContent || nextContent) && (
+                            <nav
+                                class="article-pagination"
+                                aria-label="Navegacion del curso"
+                            >
+                                {previousContent ? (
+                                    <a
+                                        class="article-pagination__card"
+                                        href={previousContent.href}
+                                    >
+                                        <span class="article-pagination__label">
+                                            Anterior
+                                        </span>
+                                        <strong>{previousContent.label}</strong>
+                                    </a>
+                                ) : (
+                                    <div class="article-pagination__card article-pagination__card--empty" />
+                                )}
+
+                                {nextContent ? (
+                                    <a
+                                        class="article-pagination__card article-pagination__card--next"
+                                        href={nextContent.href}
+                                    >
+                                        <span class="article-pagination__label">
+                                            Siguiente
+                                        </span>
+                                        <strong>{nextContent.label}</strong>
+                                    </a>
+                                ) : (
+                                    <div class="article-pagination__card article-pagination__card--empty" />
+                                )}
+                            </nav>
+                        )}
+                    </div>
+
+                    {(clubEvents.length > 0 || sidebarLinks.length > 0 || articleHeadings.length > 0) && (
+                        <aside class="club-content__sidebar club-content__sidebar--right">
+                            {clubEvents.length > 0 && (
+                                <div class="club-content__sidebar-card">
+                                    <h4>Eventos</h4>
+                                    <ul class="club-events-list">
+                                        {clubEvents.map((event) => (
+                                            <li class="club-event">
+                                                <div class="club-event__date">
+                                                    <span class="club-event__month">
+                                                        {event.parts.month}
+                                                    </span>
+                                                    {event.parts.day && (
+                                                        <span class="club-event__day">
+                                                            {event.parts.day}
+                                                        </span>
+                                                    )}
+                                                </div>
+                                                <div class="club-event__body">
+                                                    <a
+                                                        href={event.href}
+                                                        class="club-event__title"
+                                                    >
+                                                        {event.title}
+                                                    </a>
+                                                    <div class="club-event__meta">
+                                                        {event.parts.time}
+                                                        {event.venue
+                                                            ? ` · ${event.venue}`
+                                                            : ""}
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
+
+                            {sidebarLinks.length > 0 && (
+                                <div class="club-content__sidebar-card">
+                                    <h4>Recursos</h4>
+                                    <ul>
+                                        {sidebarLinks.map((link) => (
+                                            <li>
+                                                <a href={link.href}>{link.label}</a>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
+
+                            {articleHeadings.length > 0 && (
+                                <div class="club-content__sidebar-card">
+                                    <h4>Contenido</h4>
+                                    <ul>
+                                        {articleHeadings.map((heading) => (
+                                            <li
+                                                class="article-heading-item"
+                                                style={`--heading-depth: ${Math.max(
+                                                    0,
+                                                    heading.depth - 2,
+                                                )}`}
+                                            >
+                                                <a
+                                                    class="article-heading-link"
+                                                    href={`#${heading.id}`}
+                                                >
+                                                    {heading.text}
+                                                </a>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
+                        </aside>
+                    )}
+                </div>
+            </section>
+        )
+    }
+</GDGLayout>

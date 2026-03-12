@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+
+:root {
+  --ui-type-font-family: var(--ui-sys-font-primary);
+  --ui-type-font-mono: var(--ui-sys-font-mono);
+  --ui-type-font-icon: 'Material Symbols Rounded', sans-serif;
+
+  /* Icon variation defaults (override per context) */
+  --ui-icon-fill: 0;
+  --ui-icon-wght: 300;
+  --ui-icon-grad: 0;
+  --ui-icon-opsz: 24;
+
+  --ui-type-display-size: clamp(2.8rem, 7vw, 6.6rem);
+  --ui-type-display-line: 0.93;
+  --ui-type-headline-size: clamp(1.75rem, 2.6vw, 3rem);
+  --ui-type-headline-line: 1;
+  --ui-type-title-size: clamp(1.1rem, 1.2vw + 0.8rem, 1.5rem);
+  --ui-type-title-line: 1.15;
+  --ui-type-body-size: 1rem;
+  --ui-type-body-line: 1.55;
+  --ui-type-small-size: 0.875rem;
+  --ui-type-small-line: 1.45;
+
+  --ui-type-mono-size: 0.82rem;
+  --ui-type-mono-line: 1.4;
+}
+
+.ui-font,
+.ui-root,
+.ui-root :is(h1, h2, h3, h4, h5, h6, p, a, button, input, select, textarea, li, dt, dd) {
+  font-family: var(--ui-type-font-family);
+}
+
+.ui-display,
+.ui-headline,
+.ui-title,
+.ui-kicker,
+.ui-label {
+  margin: 0;
+  font-family: var(--ui-type-font-family);
+  text-wrap: balance;
+  text-align: left;
+}
+
+.ui-display {
+  font-size: var(--ui-type-display-size);
+  line-height: var(--ui-type-display-line);
+  font-weight: 700;
+  letter-spacing: -0.06em;
+}
+
+.ui-headline {
+  font-size: var(--ui-type-headline-size);
+  line-height: var(--ui-type-headline-line);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+}
+
+.ui-title {
+  font-size: var(--ui-type-title-size);
+  line-height: var(--ui-type-title-line);
+  font-weight: 600;
+  letter-spacing: -0.022em;
+}
+
+.ui-body {
+  margin: 0;
+  font-size: var(--ui-type-body-size);
+  line-height: var(--ui-type-body-line);
+  font-weight: 400;
+}
+
+.ui-body-sm {
+  margin: 0;
+  font-size: var(--ui-type-small-size);
+  line-height: var(--ui-type-small-line);
+  font-weight: 400;
+}
+
+.ui-kicker {
+  font-size: 0.72rem;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ui-sys-color-secondary);
+}
+
+.ui-label {
+  font-size: 0.78rem;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ui-body,
+.ui-body-sm {
+  max-width: var(--ev-ref-reading-measure);
+  color: var(--ui-sys-color-on-surface-muted);
+}
+
+.ui-mono,
+.ui-data,
+.ui-snippet,
+.ui-code,
+.ui-metric,
+.ui-stat-value,
+code,
+pre,
+kbd,
+samp {
+  font-family: var(--ui-type-font-mono);
+  font-size: var(--ui-type-mono-size);
+  line-height: var(--ui-type-mono-line);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.ui-metric,
+.ui-stat-value {
+  font-size: clamp(1.05rem, 1.4vw + 0.45rem, 2rem);
+  line-height: 1;
+  font-weight: 700;
+  color: var(--ui-sys-color-on-surface);
+}
+
+.ui-code {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.8rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--ev-ref-radius-sm);
+  border: var(--ui-sys-border-strong);
+  background: color-mix(in srgb, var(--ui-sys-color-surface-raised) 80%, transparent);
+  color: var(--ui-sys-color-on-surface);
+}
+
+pre.ui-snippet {
+  display: block;
+  margin: 0;
+  padding: 1rem;
+  border-radius: var(--ev-ref-radius-md);
+  border: var(--ui-sys-border-strong);
+  background: color-mix(in srgb, var(--ui-sys-color-surface-raised) 86%, transparent);
+  overflow-x: auto;
+}
+
+/* ─── Material Symbols (ligature-based icon font) ─────────────────────────────
+   Usage: <span class="ui-icon">search</span>
+   Filled: <span class="ui-icon ui-icon--filled">search</span>
+   Heavy:  <span class="ui-icon ui-icon--heavy">search</span>
+   Use --ui-icon-opsz 20 for small (inline text) contexts.
+   ──────────────────────────────────────────────────────────────────────────── */
+
+.ui-icon {
+  font-family: var(--ui-type-font-icon);
+  font-weight: normal;
+  font-style: normal;
+  font-size: 1.5rem;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  direction: ltr;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'liga';
+  font-variation-settings:
+    'FILL' var(--ui-icon-fill),
+    'wght' var(--ui-icon-wght),
+    'GRAD' var(--ui-icon-grad),
+    'opsz' var(--ui-icon-opsz);
+}
+
+/* Filled state — active nav items, selected toggles */
+.ui-icon--filled {
+  --ui-icon-fill: 1;
+}
+
+/* Heavier stroke — FAB-scale icons, large display */
+.ui-icon--heavy {
+  --ui-icon-wght: 500;
+}
+
+/* Inline / small context — matches body text optical size */
+.ui-icon--sm {
+  font-size: 1.1rem;
+  --ui-icon-opsz: 20;
+}
+
+/* Large context — FAB lg, hero actions */
+.ui-icon--lg {
+  font-size: 2rem;
+  --ui-icon-opsz: 48;
+}

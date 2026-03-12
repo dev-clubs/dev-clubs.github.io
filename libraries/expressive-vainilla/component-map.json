@@ -1,0 +1,207 @@
+{
+  "md-elevated-button": {
+    "element": "button",
+    "className": "ui-button ui-button--ghost",
+    "example": "<button class=\"ui-button ui-button--ghost\" type=\"button\">Elevated</button>"
+  },
+  "md-filled-button": {
+    "element": "button",
+    "className": "ui-button ui-button--primary",
+    "example": "<button class=\"ui-button ui-button--primary\" type=\"button\">Filled</button>"
+  },
+  "md-filled-tonal-button": {
+    "element": "button",
+    "className": "ui-button ui-button--tonal",
+    "example": "<button class=\"ui-button ui-button--tonal\" type=\"button\">Tonal</button>"
+  },
+  "md-outlined-button": {
+    "element": "button",
+    "className": "ui-button ui-button--ghost",
+    "example": "<button class=\"ui-button ui-button--ghost\" type=\"button\">Outlined</button>"
+  },
+  "md-text-button": {
+    "element": "button",
+    "className": "ui-button",
+    "example": "<button class=\"ui-button\" type=\"button\">Text</button>"
+  },
+  "md-icon-button": {
+    "element": "button",
+    "className": "ui-icon-button",
+    "example": "<button class=\"ui-icon-button\" type=\"button\" aria-label=\"Action\"><span class=\"ui-icon\">edit</span></button>"
+  },
+  "md-filled-icon-button": {
+    "element": "button",
+    "className": "ui-icon-button ui-icon-button--filled",
+    "example": "<button class=\"ui-icon-button ui-icon-button--filled\" type=\"button\" aria-label=\"Action\"><span class=\"ui-icon\">edit</span></button>"
+  },
+  "md-filled-tonal-icon-button": {
+    "element": "button",
+    "className": "ui-icon-button ui-icon-button--tonal",
+    "example": "<button class=\"ui-icon-button ui-icon-button--tonal\" type=\"button\" aria-label=\"Action\"><span class=\"ui-icon\">edit</span></button>"
+  },
+  "md-outlined-icon-button": {
+    "element": "button",
+    "className": "ui-icon-button ui-icon-button--outlined",
+    "example": "<button class=\"ui-icon-button ui-icon-button--outlined\" type=\"button\" aria-label=\"Action\"><span class=\"ui-icon\">edit</span></button>"
+  },
+  "md-fab": {
+    "element": "button",
+    "className": "ui-fab",
+    "example": "<button class=\"ui-fab\" type=\"button\" aria-label=\"Create\"><span class=\"ui-icon ui-icon--heavy\">add</span></button>"
+  },
+  "md-branded-fab": {
+    "element": "button",
+    "className": "ui-fab ui-fab--primary",
+    "example": "<button class=\"ui-fab ui-fab--primary\" type=\"button\" aria-label=\"Create\"><span class=\"ui-icon ui-icon--heavy\">add</span></button>"
+  },
+  "md-checkbox": {
+    "element": "input",
+    "className": "ui-checkbox__control",
+    "example": "<label class=\"ui-checkbox\"><input class=\"ui-checkbox__control\" type=\"checkbox\" aria-label=\"Option\" /><span>Option</span></label>"
+  },
+  "md-radio": {
+    "element": "input",
+    "className": "ui-radio__control",
+    "example": "<label class=\"ui-radio\"><input class=\"ui-radio__control\" type=\"radio\" name=\"group\" aria-label=\"Option\" /><span>Option</span></label>"
+  },
+  "md-switch": {
+    "element": "input",
+    "className": "ui-switch__control",
+    "example": "<label class=\"ui-switch\"><input class=\"ui-switch__control\" type=\"checkbox\" role=\"switch\" aria-label=\"Toggle\" /><span>Toggle</span></label>"
+  },
+  "md-slider": {
+    "element": "input",
+    "className": "ui-slider",
+    "example": "<input class=\"ui-slider\" type=\"range\" min=\"0\" max=\"100\" value=\"40\" aria-label=\"Slider\" />"
+  },
+  "md-circular-progress": {
+    "element": "span",
+    "className": "ui-loading",
+    "example": "<span class=\"ui-loading\" role=\"status\" aria-label=\"Loading\"></span>"
+  },
+  "md-linear-progress": {
+    "element": "div",
+    "className": "ui-progress",
+    "example": "<div class=\"ui-progress\" role=\"progressbar\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-valuenow=\"55\"><span style=\"width:55%\"></span></div>"
+  },
+  "md-chip-set": {
+    "element": "div",
+    "className": "ui-chip-set",
+    "example": "<div class=\"ui-chip-set\" role=\"toolbar\" aria-label=\"Chip set\"></div>"
+  },
+  "md-assist-chip": {
+    "element": "button",
+    "className": "ui-chip ui-chip--assist",
+    "example": "<button class=\"ui-chip ui-chip--assist\" type=\"button\">Assist</button>"
+  },
+  "md-filter-chip": {
+    "element": "button",
+    "className": "ui-chip ui-chip--filter",
+    "example": "<button class=\"ui-chip ui-chip--filter\" type=\"button\">Filter</button>"
+  },
+  "md-input-chip": {
+    "element": "button",
+    "className": "ui-chip ui-chip--input",
+    "example": "<button class=\"ui-chip ui-chip--input\" type=\"button\">Input</button>"
+  },
+  "md-suggestion-chip": {
+    "element": "button",
+    "className": "ui-chip ui-chip--suggestion",
+    "example": "<button class=\"ui-chip ui-chip--suggestion\" type=\"button\">Suggestion</button>"
+  },
+  "md-tabs": {
+    "element": "nav",
+    "className": "ui-tabs",
+    "example": "<nav class=\"ui-tabs\" role=\"tablist\"></nav>"
+  },
+  "md-primary-tab": {
+    "element": "button",
+    "className": "ui-tab",
+    "example": "<button class=\"ui-tab ui-tab--active\" type=\"button\" role=\"tab\" aria-selected=\"true\">Primary</button>"
+  },
+  "md-secondary-tab": {
+    "element": "button",
+    "className": "ui-tab ui-tab--secondary",
+    "example": "<button class=\"ui-tab ui-tab--secondary\" type=\"button\" role=\"tab\" aria-selected=\"false\">Secondary</button>"
+  },
+  "md-list": {
+    "element": "ul",
+    "className": "ui-list",
+    "example": "<ul class=\"ui-list\" role=\"list\"></ul>"
+  },
+  "md-list-item": {
+    "element": "li",
+    "className": "ui-list-item",
+    "example": "<li class=\"ui-list-item\" role=\"listitem\">Item</li>"
+  },
+  "md-divider": {
+    "element": "hr",
+    "className": "ui-divider",
+    "example": "<hr class=\"ui-divider\" />"
+  },
+  "md-menu": {
+    "element": "div",
+    "className": "ui-menu",
+    "example": "<div class=\"ui-menu\" role=\"menu\"></div>"
+  },
+  "md-sub-menu": {
+    "element": "div",
+    "className": "ui-sub-menu",
+    "example": "<div class=\"ui-sub-menu\"></div>"
+  },
+  "md-menu-item": {
+    "element": "button",
+    "className": "ui-menu-item",
+    "example": "<button class=\"ui-menu-item\" type=\"button\" role=\"menuitem\">Option</button>"
+  },
+  "md-filled-select": {
+    "element": "select",
+    "className": "ui-select",
+    "example": "<label class=\"ui-field\"><span>Select</span><select class=\"ui-select\"><option>Option</option></select></label>"
+  },
+  "md-outlined-select": {
+    "element": "select",
+    "className": "ui-select",
+    "example": "<label class=\"ui-field\"><span>Select</span><select class=\"ui-select\"><option>Option</option></select></label>"
+  },
+  "md-select-option": {
+    "element": "option",
+    "className": "",
+    "example": "<option value=\"item\">Item</option>"
+  },
+  "md-filled-text-field": {
+    "element": "input",
+    "className": "ui-input",
+    "example": "<label class=\"ui-field\"><span>Label</span><input class=\"ui-input\" type=\"text\" value=\"Value\" /></label>"
+  },
+  "md-outlined-text-field": {
+    "element": "input",
+    "className": "ui-input",
+    "example": "<label class=\"ui-field\"><span>Label</span><input class=\"ui-input\" type=\"text\" value=\"Value\" /></label>"
+  },
+  "md-dialog": {
+    "element": "dialog",
+    "className": "ui-dialog",
+    "example": "<dialog class=\"ui-dialog\" open><h2 class=\"ui-dialog__headline\">Dialog title</h2><div class=\"ui-dialog__content\">Dialog content.</div><div class=\"ui-dialog__actions\"><button class=\"ui-button\" type=\"button\">Cancel</button><button class=\"ui-button ui-button--primary\" type=\"button\">Ok</button></div></dialog>"
+  },
+  "md-elevation": {
+    "element": "div",
+    "className": "ui-elevation",
+    "example": "<div class=\"ui-elevation ui-card\">Elevated surface</div>"
+  },
+  "md-ripple": {
+    "element": "span",
+    "className": "ui-ripple",
+    "example": "<button class=\"ui-button ui-button--primary\" type=\"button\"><span class=\"ui-ripple\"></span>Action</button>"
+  },
+  "md-focus-ring": {
+    "element": "span",
+    "className": "ui-focus-ring",
+    "example": "<button class=\"ui-button\" type=\"button\" style=\"position:relative;\">Action<span class=\"ui-focus-ring\" aria-hidden=\"true\"></span></button>"
+  },
+  "md-icon": {
+    "element": "span",
+    "className": "ui-icon",
+    "example": "<span class=\"ui-icon\" aria-hidden=\"true\">check</span>"
+  }
+}

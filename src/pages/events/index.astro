@@ -1,0 +1,134 @@
+---
+import GDGLayout from "../../layouts/GDGLayout.astro";
+import { EVENTS, getEventCardParts } from "../../data/events";
+
+const eventCards = EVENTS.map((event) => ({
+    ...event,
+    parts: getEventCardParts(event),
+}));
+
+const clubColors: Record<string, string> = {
+    "cloud-ai": "#4285F4",
+    empowerment: "#EA4335",
+    "design-code": "#34A853",
+    "computer-science": "#F9AB00",
+    "gdg-queretaro": "#4285F4",
+};
+---
+
+<GDGLayout
+    title="Eventos — GDG Querétaro"
+    description="Calendario de eventos, meetups y workshops de GDG Querétaro."
+>
+    <section class="club-hero container" style="--brand-primary: #4285F4;">
+        <div class="club-hero__inner">
+            <div class="club-hero__text" data-animate>
+                <span
+                    class="club-hero__badge"
+                    style="background: rgba(66,133,244,0.12); color: #4285F4;"
+                >
+                    Agenda de comunidad
+                </span>
+                <h1 class="club-hero__title">Eventos</h1>
+                <p class="club-hero__desc">
+                    Calendario de meetups, workshops y sesiones de la comunidad.
+                    Mezclamos agenda de Google Calendar con banners, fotos y CTAs del sitio.
+                </p>
+                <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+                    <a
+                        href="https://gdg.community.dev/gdg-queretaro/"
+                        class="btn-primary"
+                        target="_blank"
+                        rel="noopener"
+                        style="width: fit-content; padding: 0.65rem 1.75rem;"
+                    >
+                        Únete
+                    </a>
+                    <a
+                        href="/#eventos"
+                        class="btn-outline"
+                        style="width: fit-content; padding: 0.65rem 1.75rem;"
+                    >
+                        Inicio
+                    </a>
+                </div>
+            </div>
+            <div class="club-hero__visual" data-animate>
+                <div class="club-hero__icon-circle" style="background: #4285F4;">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path
+                            d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 00-2 2v13a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2zm0 15H5V10h14zm0-11H5V6h14zm-7 6h5v5h-5z"
+                        ></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section--compact container">
+        <div class="events-grid">
+            {
+                eventCards.map((event) => (
+                    <a href={event.href} class="event-card" data-animate>
+                        <div class="event-card__image">
+                            {
+                                event.bannerImage ? (
+                                    <img src={event.bannerImage} alt={event.title} />
+                                ) : (
+                                    <div
+                                        class="event-card__image-placeholder"
+                                        style={`background:
+                                          linear-gradient(135deg, ${clubColors[event.club] ?? "#4285F4"} 0%, rgba(15,17,21,0.92) 80%);
+                                          align-items:flex-end; justify-content:flex-start; padding:1rem;`}
+                                    >
+                                        <div>
+                                            <div
+                                                class="font-code"
+                                                style="font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase;"
+                                            >
+                                                {event.bannerLabel ?? "Featured Event"}
+                                            </div>
+                                            <div
+                                                style="font-size:0.9rem; opacity:0.8; margin-top:0.35rem;"
+                                            >
+                                                {event.club.replace(/-/g, " ")}
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                        </div>
+                        <div class="event-card__body">
+                            <div class="event-card__date">
+                                <span class="event-card__date-weekday font-code"
+                                    >{event.parts.weekday}</span
+                                >
+                                <span class="event-card__date-day">{event.parts.day}</span>
+                                <span class="event-card__date-month font-code"
+                                    >{event.parts.month}</span
+                                >
+                            </div>
+                            <div class="event-card__info">
+                                <h3>{event.title}</h3>
+                                <div class="event-card__meta font-code">
+                                    <span>{event.parts.time}</span>
+                                    <span>{event.venue}</span>
+                                </div>
+                                {
+                                    event.summary && (
+                                        <p style="margin-top:0.75rem; opacity:0.82;">
+                                            {event.summary}
+                                        </p>
+                                    )
+                                }
+                                <div style="margin-top:1rem; font-weight:600;">
+                                    {event.ctaLabel ?? "Ver detalles"} →
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                ))
+            }
+        </div>
+    </section>
+</GDGLayout>
